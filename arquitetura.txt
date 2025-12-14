@@ -1,0 +1,563 @@
+// ----------------------------
+// Tenant Entity
+// ----------------------------
+package com.example.orchestration.entity;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "tenant")
+public class Tenant {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String nome;
+
+    @Column(columnDefinition = "JSONB")
+    private String configuracoes;
+
+    @Column(nullable = false)
+    private String status;
+
+    @Column(nullable = false)
+    private LocalDateTime dataCriacao;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getConfiguracoes() {
+        return configuracoes;
+    }
+
+    public void setConfiguracoes(String configuracoes) {
+        this.configuracoes = configuracoes;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+}
+
+// ----------------------------
+// Tenant DTO
+// ----------------------------
+package com.example.orchestration.dto;
+
+import java.time.LocalDateTime;
+
+public class TenantDTO {
+    private Long id;
+    private String nome;
+    private String configuracoes;
+    private String status;
+    private LocalDateTime dataCriacao;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getConfiguracoes() {
+        return configuracoes;
+    }
+
+    public void setConfiguracoes(String configuracoes) {
+        this.configuracoes = configuracoes;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+}
+
+// ----------------------------
+// Tenant Repository
+// ----------------------------
+package com.example.orchestration.repository;
+
+import com.example.orchestration.entity.Tenant;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TenantRepository extends JpaRepository<Tenant, Long> {
+}
+
+// ----------------------------
+// Tenant Service
+// ----------------------------
+package com.example.orchestration.service;
+
+import com.example.orchestration.dto.TenantDTO;
+import com.example.orchestration.entity.Tenant;
+import com.example.orchestration.repository.TenantRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class TenantService {
+    @Autowired
+    private TenantRepository tenantRepository;
+
+    public List<TenantDTO> findAll() {
+        return tenantRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    public TenantDTO findById(Long id) {
+        return tenantRepository.findById(id).map(this::toDTO).orElse(null);
+    }
+
+    public TenantDTO save(TenantDTO tenantDTO) {
+        Tenant tenant = toEntity(tenantDTO);
+        return toDTO(tenantRepository.save(tenant));
+    }
+
+    public void deleteById(Long id) {
+        tenantRepository.deleteById(id);
+    }
+
+    private TenantDTO toDTO(Tenant tenant) {
+        TenantDTO dto = new TenantDTO();
+        dto.setId(tenant.getId());
+        dto.setNome(tenant.getNome());
+        dto.setConfiguracoes(tenant.getConfiguracoes());
+        dto.setStatus(tenant.getStatus());
+        dto.setDataCriacao(tenant.getDataCriacao());
+        return dto;
+    }
+
+    private Tenant toEntity(TenantDTO tenantDTO) {
+        Tenant tenant = new Tenant();
+        tenant.setId(tenantDTO.getId());
+        tenant.setNome(tenantDTO.getNome());
+        tenant.setConfiguracoes(tenantDTO.getConfiguracoes());
+        tenant.setStatus(tenantDTO.getStatus());
+        tenant.setDataCriacao(tenantDTO.getDataCriacao());
+        return tenant;
+    }
+}
+
+// ----------------------------
+// Tenant Controller
+// ----------------------------
+package com.example.orchestration.controller;
+
+import com.example.orchestration.dto.TenantDTO;
+import com.example.orchestration.service.TenantService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/tenants")
+public class TenantController {
+    @Autowired
+    private TenantService tenantService;
+
+    @GetMapping
+    public List<TenantDTO> getAllTenants() {
+        return tenantService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public TenantDTO getTenantById(@PathVariable Long id) {
+        return tenantService.findById(id);
+    }
+
+    @PostMapping
+    public TenantDTO createTenant(@RequestBody TenantDTO tenantDTO) {
+        return tenantService.save(tenantDTO);
+    }
+
+    @PutMapping("/{id}")
+    public TenantDTO updateTenant(@PathVariable Long id, @RequestBody TenantDTO tenantDTO) {
+        tenantDTO.setId(id);
+        return tenantService.save(tenantDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTenant(@PathVariable Long id) {
+        tenantService.deleteById(id);
+    }
+}
+
+// ----------------------------
+// Agente Entity
+// ----------------------------
+package com.example.orchestration.entity;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "agente")
+public class Agente {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String nome;
+
+    @Column(nullable = false)
+    private String versao;
+
+    @Column(nullable = false)
+    private String tipo;
+
+    @Column(columnDefinition = "JSONB")
+    private String configuracoes;
+
+    @Column(nullable = false)
+    private String status;
+
+    @Column(nullable = false)
+    private LocalDateTime dataCriacao;
+
+    @Column
+    private LocalDateTime dataAtualizacao;
+
+    @Column(nullable = false)
+    private Long tenantId;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getVersao() {
+        return versao;
+    }
+
+    public void setVersao(String versao) {
+        this.versao = versao;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getConfiguracoes() {
+        return configuracoes;
+    }
+
+    public void setConfiguracoes(String configuracoes) {
+        this.configuracoes = configuracoes;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public LocalDateTime getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+}
+
+// ----------------------------
+// Agente DTO
+// ----------------------------
+package com.example.orchestration.dto;
+
+import java.time.LocalDateTime;
+
+public class AgenteDTO {
+    private Long id;
+    private String nome;
+    private String versao;
+    private String tipo;
+    private String configuracoes;
+    private String status;
+    private LocalDateTime dataCriacao;
+    private LocalDateTime dataAtualizacao;
+    private Long tenantId;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getVersao() {
+        return versao;
+    }
+
+    public void setVersao(String versao) {
+        this.versao = versao;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public String getConfiguracoes() {
+        return configuracoes;
+    }
+
+    public void setConfiguracoes(String configuracoes) {
+        this.configuracoes = configuracoes;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public LocalDateTime getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+}
+
+// ----------------------------
+// Agente Repository
+// ----------------------------
+package com.example.orchestration.repository;
+
+import com.example.orchestration.entity.Agente;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AgenteRepository extends JpaRepository<Agente, Long> {
+}
+
+// ----------------------------
+// Agente Service
+// ----------------------------
+package com.example.orchestration.service;
+
+import com.example.orchestration.dto.AgenteDTO;
+import com.example.orchestration.entity.Agente;
+import com.example.orchestration.repository.AgenteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class AgenteService {
+    @Autowired
+    private AgenteRepository agenteRepository;
+
+    public List<AgenteDTO> findAll() {
+        return agenteRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    public AgenteDTO findById(Long id) {
+        return agenteRepository.findById(id).map(this::toDTO).orElse(null);
+    }
+
+    public AgenteDTO save(AgenteDTO agenteDTO) {
+        Agente agente = toEntity(agenteDTO);
+        return toDTO(agenteRepository.save(agente));
+    }
+
+    public void deleteById(Long id) {
+        agenteRepository.deleteById(id);
+    }
+
+    private AgenteDTO toDTO(Agente agente) {
+        AgenteDTO dto = new AgenteDTO();
+        dto.setId(agente.getId());
+        dto.setNome(agente.getNome());
+        dto.setVersao(agente.getVersao());
+        dto.setTipo(agente.getTipo());
+        dto.setConfiguracoes(agente.getConfiguracoes());
+        dto.setStatus(agente.getStatus());
+        dto.setDataCriacao(agente.getDataCriacao());
+        dto.setDataAtualizacao(agente.getDataAtualizacao());
+        dto.setTenantId(agente.getTenantId());
+        return dto;
+    }
+
+    private Agente toEntity(AgenteDTO agenteDTO) {
+        Agente agente = new Agente();
+        agente.setId(agenteDTO.getId());
+        agente.setNome(agenteDTO.getNome());
+        agente.setVersao(agenteDTO.getVersao());
+        agente.setTipo(agenteDTO.getTipo());
+        agente.setConfiguracoes(agenteDTO.getConfiguracoes());
+        agente.setStatus(agenteDTO.getStatus());
+        agente.setDataCriacao(agenteDTO.getDataCriacao());
+        agente.setDataAtualizacao(agenteDTO.getDataAtualizacao());
+        agente.setTenantId(agenteDTO.getTenantId());
+        return agente;
+    }
+}
+
+// ----------------------------
+// Agente Controller
+// ----------------------------
+package com.example.orchestration.controller;
+
+import com.example.orchestration.dto.AgenteDTO;
+import com.example.orchestration.service.AgenteService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/agentes")
+public class AgenteController {
+    @Autowired
+    private AgenteService agenteService;
+
+    @GetMapping
+    public List<AgenteDTO> getAllAgentes() {
+        return agenteService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public AgenteDTO getAgenteById(@PathVariable Long id) {
+        return agenteService.findById(id);
+    }
+
+    @PostMapping
+    public AgenteDTO createAgente(@RequestBody AgenteDTO agenteDTO) {
+        return agenteService.save(agenteDTO);
+    }
+
+    @PutMapping("/{id}")
+    public AgenteDTO updateAgente(@PathVariable Long id, @RequestBody AgenteDTO agenteDTO) {
+        agenteDTO.setId(id);
+        return agenteService.save(agenteDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteAgente(@PathVariable Long id) {
+        agenteService.deleteById(id);
+    }
+}

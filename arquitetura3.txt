@@ -1,0 +1,889 @@
+// ----------------------------
+// PassoExecucao Entity
+// ----------------------------
+package com.example.orchestration.entity;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "passo_execucao")
+public class PassoExecucao {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "execucao_id", nullable = false)
+    private Long execucaoId;
+
+    @Column(name = "agente_id", nullable = false)
+    private Long agenteId;
+
+    @Column(nullable = false)
+    private Integer ordem;
+
+    @Column(nullable = false)
+    private String status;
+
+    @Column(columnDefinition = "JSONB")
+    private String inputs;
+
+    @Column(columnDefinition = "JSONB")
+    private String outputs;
+
+    @Column(columnDefinition = "JSONB")
+    private String erros;
+
+    @Column(name = "data_inicio", nullable = false)
+    private LocalDateTime dataInicio;
+
+    @Column(name = "data_fim")
+    private LocalDateTime dataFim;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getExecucaoId() {
+        return execucaoId;
+    }
+
+    public void setExecucaoId(Long execucaoId) {
+        this.execucaoId = execucaoId;
+    }
+
+    public Long getAgenteId() {
+        return agenteId;
+    }
+
+    public void setAgenteId(Long agenteId) {
+        this.agenteId = agenteId;
+    }
+
+    public Integer getOrdem() {
+        return ordem;
+    }
+
+    public void setOrdem(Integer ordem) {
+        this.ordem = ordem;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getInputs() {
+        return inputs;
+    }
+
+    public void setInputs(String inputs) {
+        this.inputs = inputs;
+    }
+
+    public String getOutputs() {
+        return outputs;
+    }
+
+    public void setOutputs(String outputs) {
+        this.outputs = outputs;
+    }
+
+    public String getErros() {
+        return erros;
+    }
+
+    public void setErros(String erros) {
+        this.erros = erros;
+    }
+
+    public LocalDateTime getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(LocalDateTime dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public LocalDateTime getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(LocalDateTime dataFim) {
+        this.dataFim = dataFim;
+    }
+}
+
+// ----------------------------
+// PassoExecucao DTO
+// ----------------------------
+package com.example.orchestration.dto;
+
+import java.time.LocalDateTime;
+
+public class PassoExecucaoDTO {
+    private Long id;
+    private Long execucaoId;
+    private Long agenteId;
+    private Integer ordem;
+    private String status;
+    private String inputs;
+    private String outputs;
+    private String erros;
+    private LocalDateTime dataInicio;
+    private LocalDateTime dataFim;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getExecucaoId() {
+        return execucaoId;
+    }
+
+    public void setExecucaoId(Long execucaoId) {
+        this.execucaoId = execucaoId;
+    }
+
+    public Long getAgenteId() {
+        return agenteId;
+    }
+
+    public void setAgenteId(Long agenteId) {
+        this.agenteId = agenteId;
+    }
+
+    public Integer getOrdem() {
+        return ordem;
+    }
+
+    public void setOrdem(Integer ordem) {
+        this.ordem = ordem;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getInputs() {
+        return inputs;
+    }
+
+    public void setInputs(String inputs) {
+        this.inputs = inputs;
+    }
+
+    public String getOutputs() {
+        return outputs;
+    }
+
+    public void setOutputs(String outputs) {
+        this.outputs = outputs;
+    }
+
+    public String getErros() {
+        return erros;
+    }
+
+    public void setErros(String erros) {
+        this.erros = erros;
+    }
+
+    public LocalDateTime getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(LocalDateTime dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public LocalDateTime getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(LocalDateTime dataFim) {
+        this.dataFim = dataFim;
+    }
+}
+
+// ----------------------------
+// PassoExecucao Repository
+// ----------------------------
+package com.example.orchestration.repository;
+
+import com.example.orchestration.entity.PassoExecucao;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PassoExecucaoRepository extends JpaRepository<PassoExecucao, Long> {
+}
+
+// ----------------------------
+// PassoExecucao Service
+// ----------------------------
+package com.example.orchestration.service;
+
+import com.example.orchestration.dto.PassoExecucaoDTO;
+import com.example.orchestration.entity.PassoExecucao;
+import com.example.orchestration.repository.PassoExecucaoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class PassoExecucaoService {
+    @Autowired
+    private PassoExecucaoRepository passoExecucaoRepository;
+
+    public List<PassoExecucaoDTO> findAll() {
+        return passoExecucaoRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    public PassoExecucaoDTO findById(Long id) {
+        return passoExecucaoRepository.findById(id).map(this::toDTO).orElse(null);
+    }
+
+    public PassoExecucaoDTO save(PassoExecucaoDTO passoExecucaoDTO) {
+        PassoExecucao passoExecucao = toEntity(passoExecucaoDTO);
+        return toDTO(passoExecucaoRepository.save(passoExecucao));
+    }
+
+    public void deleteById(Long id) {
+        passoExecucaoRepository.deleteById(id);
+    }
+
+    private PassoExecucaoDTO toDTO(PassoExecucao passoExecucao) {
+        PassoExecucaoDTO dto = new PassoExecucaoDTO();
+        dto.setId(passoExecucao.getId());
+        dto.setExecucaoId(passoExecucao.getExecucaoId());
+        dto.setAgenteId(passoExecucao.getAgenteId());
+        dto.setOrdem(passoExecucao.getOrdem());
+        dto.setStatus(passoExecucao.getStatus());
+        dto.setInputs(passoExecucao.getInputs());
+        dto.setOutputs(passoExecucao.getOutputs());
+        dto.setErros(passoExecucao.getErros());
+        dto.setDataInicio(passoExecucao.getDataInicio());
+        dto.setDataFim(passoExecucao.getDataFim());
+        return dto;
+    }
+
+    private PassoExecucao toEntity(PassoExecucaoDTO passoExecucaoDTO) {
+        PassoExecucao passoExecucao = new PassoExecucao();
+        passoExecucao.setId(passoExecucaoDTO.getId());
+        passoExecucao.setExecucaoId(passoExecucaoDTO.getExecucaoId());
+        passoExecucao.setAgenteId(passoExecucaoDTO.getAgenteId());
+        passoExecucao.setOrdem(passoExecucaoDTO.getOrdem());
+        passoExecucao.setStatus(passoExecucaoDTO.getStatus());
+        passoExecucao.setInputs(passoExecucaoDTO.getInputs());
+        passoExecucao.setOutputs(passoExecucaoDTO.getOutputs());
+        passoExecucao.setErros(passoExecucaoDTO.getErros());
+        passoExecucao.setDataInicio(passoExecucaoDTO.getDataInicio());
+        passoExecucao.setDataFim(passoExecucaoDTO.getDataFim());
+        return passoExecucao;
+    }
+}
+
+// ----------------------------
+// PassoExecucao Controller
+// ----------------------------
+package com.example.orchestration.controller;
+
+import com.example.orchestration.dto.PassoExecucaoDTO;
+import com.example.orchestration.service.PassoExecucaoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/passo-execucoes")
+public class PassoExecucaoController {
+    @Autowired
+    private PassoExecucaoService passoExecucaoService;
+
+    @GetMapping
+    public List<PassoExecucaoDTO> getAllPassoExecucoes() {
+        return passoExecucaoService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public PassoExecucaoDTO getPassoExecucaoById(@PathVariable Long id) {
+        return passoExecucaoService.findById(id);
+    }
+
+    @PostMapping
+    public PassoExecucaoDTO createPassoExecucao(@RequestBody PassoExecucaoDTO passoExecucaoDTO) {
+        return passoExecucaoService.save(passoExecucaoDTO);
+    }
+
+    @PutMapping("/{id}")
+    public PassoExecucaoDTO updatePassoExecucao(@PathVariable Long id, @RequestBody PassoExecucaoDTO passoExecucaoDTO) {
+        passoExecucaoDTO.setId(id);
+        return passoExecucaoService.save(passoExecucaoDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deletePassoExecucao(@PathVariable Long id) {
+        passoExecucaoService.deleteById(id);
+    }
+}
+
+// ----------------------------
+// LogExecucao Entity
+// ----------------------------
+package com.example.orchestration.entity;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "log_execucao")
+public class LogExecucao {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "execucao_id", nullable = false)
+    private Long execucaoId;
+
+    @Column(nullable = false)
+    private String nivel;
+
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String mensagem;
+
+    @Column(columnDefinition = "JSONB")
+    private String metadata;
+
+    @Column(name = "data_criacao", nullable = false)
+    private LocalDateTime dataCriacao;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getExecucaoId() {
+        return execucaoId;
+    }
+
+    public void setExecucaoId(Long execucaoId) {
+        this.execucaoId = execucaoId;
+    }
+
+    public String getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
+    }
+
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+}
+
+// ----------------------------
+// LogExecucao DTO
+// ----------------------------
+package com.example.orchestration.dto;
+
+import java.time.LocalDateTime;
+
+public class LogExecucaoDTO {
+    private Long id;
+    private Long execucaoId;
+    private String nivel;
+    private String mensagem;
+    private String metadata;
+    private LocalDateTime dataCriacao;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getExecucaoId() {
+        return execucaoId;
+    }
+
+    public void setExecucaoId(Long execucaoId) {
+        this.execucaoId = execucaoId;
+    }
+
+    public String getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
+    }
+
+    public String getMensagem() {
+        return mensagem;
+    }
+
+    public void setMensagem(String mensagem) {
+        this.mensagem = mensagem;
+    }
+
+    public String getMetadata() {
+        return metadata;
+    }
+
+    public void setMetadata(String metadata) {
+        this.metadata = metadata;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+}
+
+// ----------------------------
+// LogExecucao Repository
+// ----------------------------
+package com.example.orchestration.repository;
+
+import com.example.orchestration.entity.LogExecucao;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface LogExecucaoRepository extends JpaRepository<LogExecucao, Long> {
+}
+
+// ----------------------------
+// LogExecucao Service
+// ----------------------------
+package com.example.orchestration.service;
+
+import com.example.orchestration.dto.LogExecucaoDTO;
+import com.example.orchestration.entity.LogExecucao;
+import com.example.orchestration.repository.LogExecucaoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class LogExecucaoService {
+    @Autowired
+    private LogExecucaoRepository logExecucaoRepository;
+
+    public List<LogExecucaoDTO> findAll() {
+        return logExecucaoRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    public LogExecucaoDTO findById(Long id) {
+        return logExecucaoRepository.findById(id).map(this::toDTO).orElse(null);
+    }
+
+    public LogExecucaoDTO save(LogExecucaoDTO logExecucaoDTO) {
+        LogExecucao logExecucao = toEntity(logExecucaoDTO);
+        return toDTO(logExecucaoRepository.save(logExecucao));
+    }
+
+    public void deleteById(Long id) {
+        logExecucaoRepository.deleteById(id);
+    }
+
+    private LogExecucaoDTO toDTO(LogExecucao logExecucao) {
+        LogExecucaoDTO dto = new LogExecucaoDTO();
+        dto.setId(logExecucao.getId());
+        dto.setExecucaoId(logExecucao.getExecucaoId());
+        dto.setNivel(logExecucao.getNivel());
+        dto.setMensagem(logExecucao.getMensagem());
+        dto.setMetadata(logExecucao.getMetadata());
+        dto.setDataCriacao(logExecucao.getDataCriacao());
+        return dto;
+    }
+
+    private LogExecucao toEntity(LogExecucaoDTO logExecucaoDTO) {
+        LogExecucao logExecucao = new LogExecucao();
+        logExecucao.setId(logExecucaoDTO.getId());
+        logExecucao.setExecucaoId(logExecucaoDTO.getExecucaoId());
+        logExecucao.setNivel(logExecucaoDTO.getNivel());
+        logExecucao.setMensagem(logExecucaoDTO.getMensagem());
+        logExecucao.setMetadata(logExecucaoDTO.getMetadata());
+        logExecucao.setDataCriacao(logExecucaoDTO.getDataCriacao());
+        return logExecucao;
+    }
+}
+
+// ----------------------------
+// LogExecucao Controller
+// ----------------------------
+package com.example.orchestration.controller;
+
+import com.example.orchestration.dto.LogExecucaoDTO;
+import com.example.orchestration.service.LogExecucaoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/log-execucoes")
+public class LogExecucaoController {
+    @Autowired
+    private LogExecucaoService logExecucaoService;
+
+    @GetMapping
+    public List<LogExecucaoDTO> getAllLogExecucoes() {
+        return logExecucaoService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public LogExecucaoDTO getLogExecucaoById(@PathVariable Long id) {
+        return logExecucaoService.findById(id);
+    }
+
+    @PostMapping
+    public LogExecucaoDTO createLogExecucao(@RequestBody LogExecucaoDTO logExecucaoDTO) {
+        return logExecucaoService.save(logExecucaoDTO);
+    }
+
+    @PutMapping("/{id}")
+    public LogExecucaoDTO updateLogExecucao(@PathVariable Long id, @RequestBody LogExecucaoDTO logExecucaoDTO) {
+        logExecucaoDTO.setId(id);
+        return logExecucaoService.save(logExecucaoDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteLogExecucao(@PathVariable Long id) {
+        logExecucaoService.deleteById(id);
+    }
+}
+
+// ----------------------------
+// Usuario Entity
+// ----------------------------
+package com.example.orchestration.entity;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "usuario")
+public class Usuario {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String nome;
+
+    @Column(nullable = false)
+    private String email;
+
+    @Column(name = "tenant_id", nullable = false)
+    private Long tenantId;
+
+    @Column(nullable = false)
+    private String role;
+
+    @Column(nullable = false)
+    private String status;
+
+    @Column(name = "data_criacao", nullable = false)
+    private LocalDateTime dataCriacao;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+}
+
+// ----------------------------
+// Usuario DTO
+// ----------------------------
+package com.example.orchestration.dto;
+
+import java.time.LocalDateTime;
+
+public class UsuarioDTO {
+    private Long id;
+    private String nome;
+    private String email;
+    private Long tenantId;
+    private String role;
+    private String status;
+    private LocalDateTime dataCriacao;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+}
+
+// ----------------------------
+// Usuario Repository
+// ----------------------------
+package com.example.orchestration.repository;
+
+import com.example.orchestration.entity.Usuario;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
+}
+
+// ----------------------------
+// Usuario Service
+// ----------------------------
+package com.example.orchestration.service;
+
+import com.example.orchestration.dto.UsuarioDTO;
+import com.example.orchestration.entity.Usuario;
+import com.example.orchestration.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class UsuarioService {
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public List<UsuarioDTO> findAll() {
+        return usuarioRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    public UsuarioDTO findById(Long id) {
+        return usuarioRepository.findById(id).map(this::toDTO).orElse(null);
+    }
+
+    public UsuarioDTO save(UsuarioDTO usuarioDTO) {
+        Usuario usuario = toEntity(usuarioDTO);
+        return toDTO(usuarioRepository.save(usuario));
+    }
+
+    public void deleteById(Long id) {
+        usuarioRepository.deleteById(id);
+    }
+
+    private UsuarioDTO toDTO(Usuario usuario) {
+        UsuarioDTO dto = new UsuarioDTO();
+        dto.setId(usuario.getId());
+        dto.setNome(usuario.getNome());
+        dto.setEmail(usuario.getEmail());
+        dto.setTenantId(usuario.getTenantId());
+        dto.setRole(usuario.getRole());
+        dto.setStatus(usuario.getStatus());
+        dto.setDataCriacao(usuario.getDataCriacao());
+        return dto;
+    }
+
+    private Usuario toEntity(UsuarioDTO usuarioDTO) {
+        Usuario usuario = new Usuario();
+        usuario.setId(usuarioDTO.getId());
+        usuario.setNome(usuarioDTO.getNome());
+        usuario.setEmail(usuarioDTO.getEmail());
+        usuario.setTenantId(usuarioDTO.getTenantId());
+        usuario.setRole(usuarioDTO.getRole());
+        usuario.setStatus(usuarioDTO.getStatus());
+        usuario.setDataCriacao(usuarioDTO.getDataCriacao());
+        return usuario;
+    }
+}
+
+// ----------------------------
+// Usuario Controller
+// ----------------------------
+package com.example.orchestration.controller;
+
+import com.example.orchestration.dto.UsuarioDTO;
+import com.example.orchestration.service.UsuarioService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/usuarios")
+public class UsuarioController {
+    @Autowired
+    private UsuarioService usuarioService;
+
+    @GetMapping
+    public List<UsuarioDTO> getAllUsuarios() {
+        return usuarioService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public UsuarioDTO getUsuarioById(@PathVariable Long id) {
+        return usuarioService.findById(id);
+    }
+
+    @PostMapping
+    public UsuarioDTO createUsuario(@RequestBody UsuarioDTO usuarioDTO) {
+        return usuarioService.save(usuarioDTO);
+    }
+
+    @PutMapping("/{id}")
+    public UsuarioDTO updateUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO) {
+        usuarioDTO.setId(id);
+        return usuarioService.save(usuarioDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteUsuario(@PathVariable Long id) {
+        usuarioService.deleteById(id);
+    }
+}

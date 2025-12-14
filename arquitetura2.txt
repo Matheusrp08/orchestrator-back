@@ -1,0 +1,629 @@
+// ----------------------------
+// Fluxo Entity
+// ----------------------------
+package com.example.orchestration.entity;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "fluxo")
+public class Fluxo {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String nome;
+
+    @Column(nullable = false)
+    private String versao;
+
+    @Column(columnDefinition = "JSONB", nullable = false)
+    private String definicao;
+
+    @Column(nullable = false)
+    private String status;
+
+    @Column(nullable = false)
+    private LocalDateTime dataCriacao;
+
+    @Column
+    private LocalDateTime dataAtualizacao;
+
+    @Column(nullable = false)
+    private Long tenantId;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getVersao() {
+        return versao;
+    }
+
+    public void setVersao(String versao) {
+        this.versao = versao;
+    }
+
+    public String getDefinicao() {
+        return definicao;
+    }
+
+    public void setDefinicao(String definicao) {
+        this.definicao = definicao;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public LocalDateTime getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+}
+
+// ----------------------------
+// Fluxo DTO
+// ----------------------------
+package com.example.orchestration.dto;
+
+import java.time.LocalDateTime;
+
+public class FluxoDTO {
+    private Long id;
+    private String nome;
+    private String versao;
+    private String definicao;
+    private String status;
+    private LocalDateTime dataCriacao;
+    private LocalDateTime dataAtualizacao;
+    private Long tenantId;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getVersao() {
+        return versao;
+    }
+
+    public void setVersao(String versao) {
+        this.versao = versao;
+    }
+
+    public String getDefinicao() {
+        return definicao;
+    }
+
+    public void setDefinicao(String definicao) {
+        this.definicao = definicao;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
+    }
+
+    public void setDataCriacao(LocalDateTime dataCriacao) {
+        this.dataCriacao = dataCriacao;
+    }
+
+    public LocalDateTime getDataAtualizacao() {
+        return dataAtualizacao;
+    }
+
+    public void setDataAtualizacao(LocalDateTime dataAtualizacao) {
+        this.dataAtualizacao = dataAtualizacao;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+}
+
+// ----------------------------
+// Fluxo Repository
+// ----------------------------
+package com.example.orchestration.repository;
+
+import com.example.orchestration.entity.Fluxo;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface FluxoRepository extends JpaRepository<Fluxo, Long> {
+}
+
+// ----------------------------
+// Fluxo Service
+// ----------------------------
+package com.example.orchestration.service;
+
+import com.example.orchestration.dto.FluxoDTO;
+import com.example.orchestration.entity.Fluxo;
+import com.example.orchestration.repository.FluxoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class FluxoService {
+    @Autowired
+    private FluxoRepository fluxoRepository;
+
+    public List<FluxoDTO> findAll() {
+        return fluxoRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    public FluxoDTO findById(Long id) {
+        return fluxoRepository.findById(id).map(this::toDTO).orElse(null);
+    }
+
+    public FluxoDTO save(FluxoDTO fluxoDTO) {
+        Fluxo fluxo = toEntity(fluxoDTO);
+        return toDTO(fluxoRepository.save(fluxo));
+    }
+
+    public void deleteById(Long id) {
+        fluxoRepository.deleteById(id);
+    }
+
+    private FluxoDTO toDTO(Fluxo fluxo) {
+        FluxoDTO dto = new FluxoDTO();
+        dto.setId(fluxo.getId());
+        dto.setNome(fluxo.getNome());
+        dto.setVersao(fluxo.getVersao());
+        dto.setDefinicao(fluxo.getDefinicao());
+        dto.setStatus(fluxo.getStatus());
+        dto.setDataCriacao(fluxo.getDataCriacao());
+        dto.setDataAtualizacao(fluxo.getDataAtualizacao());
+        dto.setTenantId(fluxo.getTenantId());
+        return dto;
+    }
+
+    private Fluxo toEntity(FluxoDTO fluxoDTO) {
+        Fluxo fluxo = new Fluxo();
+        fluxo.setId(fluxoDTO.getId());
+        fluxo.setNome(fluxoDTO.getNome());
+        fluxo.setVersao(fluxoDTO.getVersao());
+        fluxo.setDefinicao(fluxoDTO.getDefinicao());
+        fluxo.setStatus(fluxoDTO.getStatus());
+        fluxo.setDataCriacao(fluxoDTO.getDataCriacao());
+        fluxo.setDataAtualizacao(fluxoDTO.getDataAtualizacao());
+        fluxo.setTenantId(fluxoDTO.getTenantId());
+        return fluxo;
+    }
+}
+
+// ----------------------------
+// Fluxo Controller
+// ----------------------------
+package com.example.orchestration.controller;
+
+import com.example.orchestration.dto.FluxoDTO;
+import com.example.orchestration.service.FluxoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/fluxos")
+public class FluxoController {
+    @Autowired
+    private FluxoService fluxoService;
+
+    @GetMapping
+    public List<FluxoDTO> getAllFluxos() {
+        return fluxoService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public FluxoDTO getFluxoById(@PathVariable Long id) {
+        return fluxoService.findById(id);
+    }
+
+    @PostMapping
+    public FluxoDTO createFluxo(@RequestBody FluxoDTO fluxoDTO) {
+        return fluxoService.save(fluxoDTO);
+    }
+
+    @PutMapping("/{id}")
+    public FluxoDTO updateFluxo(@PathVariable Long id, @RequestBody FluxoDTO fluxoDTO) {
+        fluxoDTO.setId(id);
+        return fluxoService.save(fluxoDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteFluxo(@PathVariable Long id) {
+        fluxoService.deleteById(id);
+    }
+}
+
+// ----------------------------
+// Execucao Entity
+// ----------------------------
+package com.example.orchestration.entity;
+
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "execucao")
+public class Execucao {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "fluxo_id", nullable = false)
+    private Long fluxoId;
+
+    @Column(nullable = false)
+    private String status;
+
+    @Column(columnDefinition = "JSONB")
+    private String inputs;
+
+    @Column(columnDefinition = "JSONB")
+    private String outputs;
+
+    @Column(columnDefinition = "JSONB")
+    private String erros;
+
+    @Column(name = "data_inicio", nullable = false)
+    private LocalDateTime dataInicio;
+
+    @Column(name = "data_fim")
+    private LocalDateTime dataFim;
+
+    @Column(name = "tenant_id", nullable = false)
+    private Long tenantId;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getFluxoId() {
+        return fluxoId;
+    }
+
+    public void setFluxoId(Long fluxoId) {
+        this.fluxoId = fluxoId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getInputs() {
+        return inputs;
+    }
+
+    public void setInputs(String inputs) {
+        this.inputs = inputs;
+    }
+
+    public String getOutputs() {
+        return outputs;
+    }
+
+    public void setOutputs(String outputs) {
+        this.outputs = outputs;
+    }
+
+    public String getErros() {
+        return erros;
+    }
+
+    public void setErros(String erros) {
+        this.erros = erros;
+    }
+
+    public LocalDateTime getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(LocalDateTime dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public LocalDateTime getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(LocalDateTime dataFim) {
+        this.dataFim = dataFim;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+}
+
+// ----------------------------
+// Execucao DTO
+// ----------------------------
+package com.example.orchestration.dto;
+
+import java.time.LocalDateTime;
+
+public class ExecucaoDTO {
+    private Long id;
+    private Long fluxoId;
+    private String status;
+    private String inputs;
+    private String outputs;
+    private String erros;
+    private LocalDateTime dataInicio;
+    private LocalDateTime dataFim;
+    private Long tenantId;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getFluxoId() {
+        return fluxoId;
+    }
+
+    public void setFluxoId(Long fluxoId) {
+        this.fluxoId = fluxoId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getInputs() {
+        return inputs;
+    }
+
+    public void setInputs(String inputs) {
+        this.inputs = inputs;
+    }
+
+    public String getOutputs() {
+        return outputs;
+    }
+
+    public void setOutputs(String outputs) {
+        this.outputs = outputs;
+    }
+
+    public String getErros() {
+        return erros;
+    }
+
+    public void setErros(String erros) {
+        this.erros = erros;
+    }
+
+    public LocalDateTime getDataInicio() {
+        return dataInicio;
+    }
+
+    public void setDataInicio(LocalDateTime dataInicio) {
+        this.dataInicio = dataInicio;
+    }
+
+    public LocalDateTime getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(LocalDateTime dataFim) {
+        this.dataFim = dataFim;
+    }
+
+    public Long getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(Long tenantId) {
+        this.tenantId = tenantId;
+    }
+}
+
+// ----------------------------
+// Execucao Repository
+// ----------------------------
+package com.example.orchestration.repository;
+
+import com.example.orchestration.entity.Execucao;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ExecucaoRepository extends JpaRepository<Execucao, Long> {
+}
+
+// ----------------------------
+// Execucao Service
+// ----------------------------
+package com.example.orchestration.service;
+
+import com.example.orchestration.dto.ExecucaoDTO;
+import com.example.orchestration.entity.Execucao;
+import com.example.orchestration.repository.ExecucaoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class ExecucaoService {
+    @Autowired
+    private ExecucaoRepository execucaoRepository;
+
+    public List<ExecucaoDTO> findAll() {
+        return execucaoRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    public ExecucaoDTO findById(Long id) {
+        return execucaoRepository.findById(id).map(this::toDTO).orElse(null);
+    }
+
+    public ExecucaoDTO save(ExecucaoDTO execucaoDTO) {
+        Execucao execucao = toEntity(execucaoDTO);
+        return toDTO(execucaoRepository.save(execucao));
+    }
+
+    public void deleteById(Long id) {
+        execucaoRepository.deleteById(id);
+    }
+
+    private ExecucaoDTO toDTO(Execucao execucao) {
+        ExecucaoDTO dto = new ExecucaoDTO();
+        dto.setId(execucao.getId());
+        dto.setFluxoId(execucao.getFluxoId());
+        dto.setStatus(execucao.getStatus());
+        dto.setInputs(execucao.getInputs());
+        dto.setOutputs(execucao.getOutputs());
+        dto.setErros(execucao.getErros());
+        dto.setDataInicio(execucao.getDataInicio());
+        dto.setDataFim(execucao.getDataFim());
+        dto.setTenantId(execucao.getTenantId());
+        return dto;
+    }
+
+    private Execucao toEntity(ExecucaoDTO execucaoDTO) {
+        Execucao execucao = new Execucao();
+        execucao.setId(execucaoDTO.getId());
+        execucao.setFluxoId(execucaoDTO.getFluxoId());
+        execucao.setStatus(execucaoDTO.getStatus());
+        execucao.setInputs(execucaoDTO.getInputs());
+        execucao.setOutputs(execucaoDTO.getOutputs());
+        execucao.setErros(execucaoDTO.getErros());
+        execucao.setDataInicio(execucaoDTO.getDataInicio());
+        execucao.setDataFim(execucaoDTO.getDataFim());
+        execucao.setTenantId(execucaoDTO.getTenantId());
+        return execucao;
+    }
+}
+
+// ----------------------------
+// Execucao Controller
+// ----------------------------
+package com.example.orchestration.controller;
+
+import com.example.orchestration.dto.ExecucaoDTO;
+import com.example.orchestration.service.ExecucaoService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/execucoes")
+public class ExecucaoController {
+    @Autowired
+    private ExecucaoService execucaoService;
+
+    @GetMapping
+    public List<ExecucaoDTO> getAllExecucoes() {
+        return execucaoService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    public ExecucaoDTO getExecucaoById(@PathVariable Long id) {
+        return execucaoService.findById(id);
+    }
+
+    @PostMapping
+    public ExecucaoDTO createExecucao(@RequestBody ExecucaoDTO execucaoDTO) {
+        return execucaoService.save(execucaoDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ExecucaoDTO updateExecucao(@PathVariable Long id, @RequestBody ExecucaoDTO execucaoDTO) {
+        execucaoDTO.setId(id);
+        return execucaoService.save(execucaoDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteExecucao(@PathVariable Long id) {
+        execucaoService.deleteById(id);
+    }
+}
