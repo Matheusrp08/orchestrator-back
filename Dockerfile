@@ -13,14 +13,11 @@ ENV SPRING_PROFILES_ACTIVE=prod \
 # Diretório de trabalho
 WORKDIR /app
 
-# Copie apenas o pom.xml primeiro (para resolver dependências)
-COPY pom.xml .
+# Copie todo o projeto primeiro (para resolver dependências corretamente)
+COPY . .
 
 # Instale dependências Maven
 RUN mvn dependency:go-offline
-
-# Copie o restante do projeto
-COPY src ./src
 
 # Build do JAR (sem testes)
 RUN mvn package -DskipTests -Pprod
@@ -28,7 +25,8 @@ RUN mvn package -DskipTests -Pprod
 # Fase final (sem JDK, apenas JRE)
 FROM eclipse-temurin:17-jre-jammy
 
-# Copie o JAR gerado
+# Copie o JAR gerado (verifique o nome exato do JAR)
+WORKDIR /app
 COPY --from=builder /app/target/*.jar app.jar
 
 # Exporte a porta
