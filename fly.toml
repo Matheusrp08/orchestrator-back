@@ -1,15 +1,15 @@
-# fly.toml app configuration file generated for orchestrator-back on 2025-12-15T02:36:57Z
+# fly.toml app configuration file generated for orchestrator-back on 2025-12-15T02:56:27Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
 app = 'orchestrator-back'
-primary_region = 'gru'
+primary_region = 'iad'
 
 [build]
 
 [http_service]
-  internal_port = 8080
+  internal_port = 8081
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
