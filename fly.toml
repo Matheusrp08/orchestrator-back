@@ -1,0 +1,13 @@
+app = "orchestrator-back"
+primary_region = "ord"  # Região mais próxima ao Supabase (US East)
+
+[build]
+dockerfile = "Dockerfile"
+
+[env]
+SPRING_PROFILES_ACTIVE = "prod"
+JAVA_OPTS = "-XX:MaxRAMPercentage=75.0"
+
+[[services]]
+protocol = "tcp"
+internal_port = 8081
