@@ -1,62 +1,4 @@
 {
-  "AgenteController" : {
-    "basePath" : "/api/agentes",
-    "endpoints" : [ {
-      "name" : "getAllAgentes",
-      "javaMethod" : "getAllAgentes",
-      "httpMethods" : [ "GET" ],
-      "path" : [ "/api/agentes" ]
-    }, {
-      "name" : "getAgenteById",
-      "javaMethod" : "getAgenteById",
-      "httpMethods" : [ "GET" ],
-      "path" : [ "/api/agentes/{id}" ]
-    }, {
-      "name" : "deleteAgente",
-      "javaMethod" : "deleteAgente",
-      "httpMethods" : [ "DELETE" ],
-      "path" : [ "/api/agentes/{id}" ]
-    }, {
-      "name" : "updateAgente",
-      "javaMethod" : "updateAgente",
-      "httpMethods" : [ "PUT" ],
-      "path" : [ "/api/agentes/{id}" ]
-    }, {
-      "name" : "createAgente",
-      "javaMethod" : "createAgente",
-      "httpMethods" : [ "POST" ],
-      "path" : [ "/api/agentes" ]
-    } ]
-  },
-  "TenantController" : {
-    "basePath" : "/api/tenants",
-    "endpoints" : [ {
-      "name" : "getTenantById",
-      "javaMethod" : "getTenantById",
-      "httpMethods" : [ "GET" ],
-      "path" : [ "/api/tenants/{id}" ]
-    }, {
-      "name" : "updateTenant",
-      "javaMethod" : "updateTenant",
-      "httpMethods" : [ "PUT" ],
-      "path" : [ "/api/tenants/{id}" ]
-    }, {
-      "name" : "deleteTenant",
-      "javaMethod" : "deleteTenant",
-      "httpMethods" : [ "DELETE" ],
-      "path" : [ "/api/tenants/{id}" ]
-    }, {
-      "name" : "createTenant",
-      "javaMethod" : "createTenant",
-      "httpMethods" : [ "POST" ],
-      "path" : [ "/api/tenants" ]
-    }, {
-      "name" : "getAllTenants",
-      "javaMethod" : "getAllTenants",
-      "httpMethods" : [ "GET" ],
-      "path" : [ "/api/tenants" ]
-    } ]
-  },
   "FluxoController" : {
     "basePath" : "/api/fluxos",
     "endpoints" : [ {
@@ -65,9 +7,9 @@
       "httpMethods" : [ "GET" ],
       "path" : [ "/api/fluxos/{id}" ]
     }, {
-      "name" : "updateFluxo",
-      "javaMethod" : "updateFluxo",
-      "httpMethods" : [ "PUT" ],
+      "name" : "deleteFluxo",
+      "javaMethod" : "deleteFluxo",
+      "httpMethods" : [ "DELETE" ],
       "path" : [ "/api/fluxos/{id}" ]
     }, {
       "name" : "getAllFluxos",
@@ -75,92 +17,58 @@
       "httpMethods" : [ "GET" ],
       "path" : [ "/api/fluxos" ]
     }, {
+      "name" : "updateFluxo",
+      "javaMethod" : "updateFluxo",
+      "httpMethods" : [ "PUT" ],
+      "path" : [ "/api/fluxos/{id}" ]
+    }, {
       "name" : "createFluxo",
       "javaMethod" : "createFluxo",
       "httpMethods" : [ "POST" ],
       "path" : [ "/api/fluxos" ]
-    }, {
-      "name" : "deleteFluxo",
-      "javaMethod" : "deleteFluxo",
-      "httpMethods" : [ "DELETE" ],
-      "path" : [ "/api/fluxos/{id}" ]
     } ]
   },
-  "UsuarioController" : {
-    "basePath" : "/api/usuarios",
+  "WorkspaceController" : {
+    "basePath" : "/api/workspaces",
     "endpoints" : [ {
-      "name" : "getAllUsuarios",
-      "javaMethod" : "getAllUsuarios",
-      "httpMethods" : [ "GET" ],
-      "path" : [ "/api/usuarios" ]
-    }, {
-      "name" : "deleteUsuario",
-      "javaMethod" : "deleteUsuario",
-      "httpMethods" : [ "DELETE" ],
-      "path" : [ "/api/usuarios/{id}" ]
-    }, {
-      "name" : "updateUsuario",
-      "javaMethod" : "updateUsuario",
-      "httpMethods" : [ "PUT" ],
-      "path" : [ "/api/usuarios/{id}" ]
-    }, {
-      "name" : "createUsuario",
-      "javaMethod" : "createUsuario",
+      "name" : "createWorkspace",
+      "javaMethod" : "createWorkspace",
       "httpMethods" : [ "POST" ],
-      "path" : [ "/api/usuarios" ]
+      "path" : [ "/api/workspaces" ]
     }, {
-      "name" : "getUsuarioById",
-      "javaMethod" : "getUsuarioById",
+      "name" : "getWorkspaceById",
+      "javaMethod" : "getWorkspaceById",
       "httpMethods" : [ "GET" ],
-      "path" : [ "/api/usuarios/{id}" ]
-    } ]
-  },
-  "LogExecucaoController" : {
-    "basePath" : "/api/log-execucoes",
-    "endpoints" : [ {
-      "name" : "getAllLogExecucoes",
-      "javaMethod" : "getAllLogExecucoes",
-      "httpMethods" : [ "GET" ],
-      "path" : [ "/api/log-execucoes" ]
+      "path" : [ "/api/workspaces/{id}" ]
     }, {
-      "name" : "getLogExecucaoById",
-      "javaMethod" : "getLogExecucaoById",
+      "name" : "getAllWorkspaces",
+      "javaMethod" : "getAllWorkspaces",
       "httpMethods" : [ "GET" ],
-      "path" : [ "/api/log-execucoes/{id}" ]
+      "path" : [ "/api/workspaces" ]
     }, {
-      "name" : "deleteLogExecucao",
-      "javaMethod" : "deleteLogExecucao",
+      "name" : "deleteWorkspace",
+      "javaMethod" : "deleteWorkspace",
       "httpMethods" : [ "DELETE" ],
-      "path" : [ "/api/log-execucoes/{id}" ]
+      "path" : [ "/api/workspaces/{id}" ]
     }, {
-      "name" : "createLogExecucao",
-      "javaMethod" : "createLogExecucao",
-      "httpMethods" : [ "POST" ],
-      "path" : [ "/api/log-execucoes" ]
-    }, {
-      "name" : "updateLogExecucao",
-      "javaMethod" : "updateLogExecucao",
+      "name" : "updateWorkspace",
+      "javaMethod" : "updateWorkspace",
       "httpMethods" : [ "PUT" ],
-      "path" : [ "/api/log-execucoes/{id}" ]
+      "path" : [ "/api/workspaces/{id}" ]
     } ]
   },
   "ExecucaoController" : {
     "basePath" : "/api/execucoes",
     "endpoints" : [ {
-      "name" : "deleteExecucao",
-      "javaMethod" : "deleteExecucao",
-      "httpMethods" : [ "DELETE" ],
+      "name" : "updateExecucao",
+      "javaMethod" : "updateExecucao",
+      "httpMethods" : [ "PUT" ],
       "path" : [ "/api/execucoes/{id}" ]
     }, {
       "name" : "getAllExecucoes",
       "javaMethod" : "getAllExecucoes",
       "httpMethods" : [ "GET" ],
       "path" : [ "/api/execucoes" ]
-    }, {
-      "name" : "updateExecucao",
-      "javaMethod" : "updateExecucao",
-      "httpMethods" : [ "PUT" ],
-      "path" : [ "/api/execucoes/{id}" ]
     }, {
       "name" : "createExecucao",
       "javaMethod" : "createExecucao",
@@ -171,30 +79,55 @@
       "javaMethod" : "getExecucaoById",
       "httpMethods" : [ "GET" ],
       "path" : [ "/api/execucoes/{id}" ]
+    }, {
+      "name" : "deleteExecucao",
+      "javaMethod" : "deleteExecucao",
+      "httpMethods" : [ "DELETE" ],
+      "path" : [ "/api/execucoes/{id}" ]
     } ]
   },
-  "BasicErrorController" : {
-    "basePath" : "${server.error.path:${error.path:/error}}",
+  "GitOperationController" : {
+    "basePath" : "/api/git-operations",
     "endpoints" : [ {
-      "name" : "error",
-      "javaMethod" : "error",
-      "httpMethods" : [ ],
-      "path" : [ "/error" ]
+      "name" : "createGitOperation",
+      "javaMethod" : "createGitOperation",
+      "httpMethods" : [ "POST" ],
+      "path" : [ "/api/git-operations" ]
     }, {
-      "name" : "errorHtml",
-      "javaMethod" : "errorHtml",
-      "httpMethods" : [ ],
-      "path" : [ "/error" ]
+      "name" : "getGitOperationById",
+      "javaMethod" : "getGitOperationById",
+      "httpMethods" : [ "GET" ],
+      "path" : [ "/api/git-operations/{id}" ]
+    }, {
+      "name" : "deleteGitOperation",
+      "javaMethod" : "deleteGitOperation",
+      "httpMethods" : [ "DELETE" ],
+      "path" : [ "/api/git-operations/{id}" ]
+    }, {
+      "name" : "updateGitOperation",
+      "javaMethod" : "updateGitOperation",
+      "httpMethods" : [ "PUT" ],
+      "path" : [ "/api/git-operations/{id}" ]
+    }, {
+      "name" : "getGitOperationsByExecucaoId",
+      "javaMethod" : "getGitOperationsByExecucaoId",
+      "httpMethods" : [ "GET" ],
+      "path" : [ "/api/git-operations/execucao/{execucaoId}" ]
+    }, {
+      "name" : "getAllGitOperations",
+      "javaMethod" : "getAllGitOperations",
+      "httpMethods" : [ "GET" ],
+      "path" : [ "/api/git-operations" ]
+    }, {
+      "name" : "getGitOperationsByWorkspaceId",
+      "javaMethod" : "getGitOperationsByWorkspaceId",
+      "httpMethods" : [ "GET" ],
+      "path" : [ "/api/git-operations/workspace/{workspaceId}" ]
     } ]
   },
   "PassoExecucaoController" : {
     "basePath" : "/api/passo-execucoes",
     "endpoints" : [ {
-      "name" : "getAllPassoExecucoes",
-      "javaMethod" : "getAllPassoExecucoes",
-      "httpMethods" : [ "GET" ],
-      "path" : [ "/api/passo-execucoes" ]
-    }, {
       "name" : "getPassoExecucaoById",
       "javaMethod" : "getPassoExecucaoById",
       "httpMethods" : [ "GET" ],
@@ -210,10 +143,145 @@
       "httpMethods" : [ "PUT" ],
       "path" : [ "/api/passo-execucoes/{id}" ]
     }, {
+      "name" : "getAllPassoExecucoes",
+      "javaMethod" : "getAllPassoExecucoes",
+      "httpMethods" : [ "GET" ],
+      "path" : [ "/api/passo-execucoes" ]
+    }, {
       "name" : "createPassoExecucao",
       "javaMethod" : "createPassoExecucao",
       "httpMethods" : [ "POST" ],
       "path" : [ "/api/passo-execucoes" ]
+    } ]
+  },
+  "AgenteController" : {
+    "basePath" : "/api/agentes",
+    "endpoints" : [ {
+      "name" : "getAgenteById",
+      "javaMethod" : "getAgenteById",
+      "httpMethods" : [ "GET" ],
+      "path" : [ "/api/agentes/{id}" ]
+    }, {
+      "name" : "createAgente",
+      "javaMethod" : "createAgente",
+      "httpMethods" : [ "POST" ],
+      "path" : [ "/api/agentes" ]
+    }, {
+      "name" : "deleteAgente",
+      "javaMethod" : "deleteAgente",
+      "httpMethods" : [ "DELETE" ],
+      "path" : [ "/api/agentes/{id}" ]
+    }, {
+      "name" : "updateAgente",
+      "javaMethod" : "updateAgente",
+      "httpMethods" : [ "PUT" ],
+      "path" : [ "/api/agentes/{id}" ]
+    }, {
+      "name" : "getAllAgentes",
+      "javaMethod" : "getAllAgentes",
+      "httpMethods" : [ "GET" ],
+      "path" : [ "/api/agentes" ]
+    } ]
+  },
+  "BasicErrorController" : {
+    "basePath" : "${server.error.path:${error.path:/error}}",
+    "endpoints" : [ {
+      "name" : "errorHtml",
+      "javaMethod" : "errorHtml",
+      "httpMethods" : [ ],
+      "path" : [ "/error" ]
+    }, {
+      "name" : "error",
+      "javaMethod" : "error",
+      "httpMethods" : [ ],
+      "path" : [ "/error" ]
+    } ]
+  },
+  "LogExecucaoController" : {
+    "basePath" : "/api/log-execucoes",
+    "endpoints" : [ {
+      "name" : "getAllLogExecucoes",
+      "javaMethod" : "getAllLogExecucoes",
+      "httpMethods" : [ "GET" ],
+      "path" : [ "/api/log-execucoes" ]
+    }, {
+      "name" : "getLogExecucaoById",
+      "javaMethod" : "getLogExecucaoById",
+      "httpMethods" : [ "GET" ],
+      "path" : [ "/api/log-execucoes/{id}" ]
+    }, {
+      "name" : "createLogExecucao",
+      "javaMethod" : "createLogExecucao",
+      "httpMethods" : [ "POST" ],
+      "path" : [ "/api/log-execucoes" ]
+    }, {
+      "name" : "deleteLogExecucao",
+      "javaMethod" : "deleteLogExecucao",
+      "httpMethods" : [ "DELETE" ],
+      "path" : [ "/api/log-execucoes/{id}" ]
+    }, {
+      "name" : "updateLogExecucao",
+      "javaMethod" : "updateLogExecucao",
+      "httpMethods" : [ "PUT" ],
+      "path" : [ "/api/log-execucoes/{id}" ]
+    } ]
+  },
+  "UsuarioController" : {
+    "basePath" : "/api/usuarios",
+    "endpoints" : [ {
+      "name" : "getUsuarioById",
+      "javaMethod" : "getUsuarioById",
+      "httpMethods" : [ "GET" ],
+      "path" : [ "/api/usuarios/{id}" ]
+    }, {
+      "name" : "deleteUsuario",
+      "javaMethod" : "deleteUsuario",
+      "httpMethods" : [ "DELETE" ],
+      "path" : [ "/api/usuarios/{id}" ]
+    }, {
+      "name" : "getAllUsuarios",
+      "javaMethod" : "getAllUsuarios",
+      "httpMethods" : [ "GET" ],
+      "path" : [ "/api/usuarios" ]
+    }, {
+      "name" : "updateUsuario",
+      "javaMethod" : "updateUsuario",
+      "httpMethods" : [ "PUT" ],
+      "path" : [ "/api/usuarios/{id}" ]
+    }, {
+      "name" : "createUsuario",
+      "javaMethod" : "createUsuario",
+      "httpMethods" : [ "POST" ],
+      "path" : [ "/api/usuarios" ]
+    } ]
+  },
+  "TenantController" : {
+    "basePath" : "/api/tenants",
+    "endpoints" : [ {
+      "name" : "getAllTenants",
+      "javaMethod" : "getAllTenants",
+      "httpMethods" : [ "GET" ],
+      "path" : [ "/api/tenants" ]
+    }, {
+      "name" : "getTenantById",
+      "javaMethod" : "getTenantById",
+      "httpMethods" : [ "GET" ],
+      "path" : [ "/api/tenants/{id}" ]
+    }, {
+      "name" : "deleteTenant",
+      "javaMethod" : "deleteTenant",
+      "httpMethods" : [ "DELETE" ],
+      "path" : [ "/api/tenants/{id}" ]
+    }, {
+      "name" : "createTenant",
+      "javaMethod" : "createTenant",
+      "httpMethods" : [ "POST" ],
+      "path" : [ "/api/tenants" ]
+    }, {
+      "name" : "updateTenant",
+      "javaMethod" : "updateTenant",
+      "httpMethods" : [ "PUT" ],
+      "path" : [ "/api/tenants/{id}" ]
     } ]
   }
 }
