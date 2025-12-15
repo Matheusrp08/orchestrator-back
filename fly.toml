@@ -1,8 +1,3 @@
-# fly.toml app configuration file generated for orchestrator-back on 2025-12-15T02:56:27Z
-#
-# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
-#
-
 app = 'orchestrator-back'
 primary_region = 'iad'
 
