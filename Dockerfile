@@ -1,5 +1,10 @@
-# Fase de build (com JDK)
+# Fase de build (com JDK + Maven)
 FROM eclipse-temurin:17-jdk-jammy as builder
+
+# Instale o Maven
+RUN apt-get update && \
+    apt-get install -y maven && \
+    rm -rf /var/lib/apt/lists/*
 
 # Variáveis de ambiente
 ENV SPRING_PROFILES_ACTIVE=prod \
@@ -16,7 +21,6 @@ RUN mvn dependency:go-offline
 
 # Copie o restante do projeto
 COPY src ./src
-COPY target ./target
 
 # Build do JAR (sem testes)
 RUN mvn package -DskipTests -Pprod
