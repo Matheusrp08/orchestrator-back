@@ -1,37 +1,34 @@
-# Use a imagem oficial do OpenJDK 17 (recomendado para Spring Boot 3.x)
+# Fase de build (com JDK)
 FROM eclipse-temurin:17-jdk-jammy as builder
 
-# Defina variáveis de ambiente
+# Variáveis de ambiente
 ENV SPRING_PROFILES_ACTIVE=prod \
     JAVA_OPTS="-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0"
 
 # Diretório de trabalho
 WORKDIR /app
 
-# Copie o arquivo de build (pom.xml ou build.gradle)
+# Copie apenas o pom.xml primeiro (para resolver dependências)
 COPY pom.xml .
-COPY gradlew .
-COPY gradle gradle
-COPY settings.gradle .
-COPY build.gradle .
 
-# Instale dependências
-RUN ./gradlew dependencies --no-daemon
+# Instale dependências Maven
+RUN mvn dependency:go-offline
 
 # Copie o restante do projeto
 COPY src ./src
+COPY target ./target
 
-# Build do projeto
-RUN ./gradlew bootJar --no-daemon
+# Build do JAR (sem testes)
+RUN mvn package -DskipTests -Pprod
 
-# Use uma imagem mais leve para execução
+# Fase final (sem JDK, apenas JRE)
 FROM eclipse-temurin:17-jre-jammy
 
-# Copie o JAR compilado da fase de build
-COPY --from=builder /app/build/libs/*.jar app.jar
+# Copie o JAR gerado
+COPY --from=builder /app/target/*.jar app.jar
 
-# Exporte a porta do Spring Boot
+# Exporte a porta
 EXPOSE 8081
 
-# Comando para executar o JAR
+# Comando para executar
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -jar /app/app.jar"]
