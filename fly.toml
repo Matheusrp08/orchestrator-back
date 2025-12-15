@@ -1,19 +1,24 @@
 app = 'orchestrator-back'
 primary_region = 'iad'
 
-[build]
-  image = 'ghcr.io/flyio/java-buildpack:latest'  # Buildpack oficial para Java
+# ==> REMOVA ESTA LINHA (evita conflitos com o Dockerfile):
+# [build]
+#   image = 'ghcr.io/flyio/java-buildpack:latest'
 
 [env]
   SPRING_PROFILES_ACTIVE = "prod"
   JAVA_OPTS = "-XX:+UseContainerSupport -XX:MaxRAMPercentage=75.0 -Dserver.address=0.0.0.0"
+  # Adicione estas variáveis para o Fly.io gerenciar logs e saúde:
+  FLY_LOG_LEVEL = "info"
+  FLY_HEALTH_CHECK_PATH = "/actuator/health"  # Caminho padrão do Spring Boot Actuator
 
 [http_service]
   internal_port = 8081
   force_https = true
-  auto_stop_machines = 'stop'
+  auto_stop_machines = false  # Mantenha sempre uma máquina ativa
   auto_start_machines = true
-  min_machines_running = 1  # Mínimo de 1 máquina para evitar downtime
+  min_machines_running = 1
+  max_machines_running = 1  # Limita recursos (ajuste se precisar de escalabilidade)
 
 [[vm]]
   memory = '1gb'
