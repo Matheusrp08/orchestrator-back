@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  backend:
+    image: ghcr.io/Matheusrp08/backend:latest
+    container_name: backend
+    restart: unless-stopped
+    ports:
+      - "8081:8081"  # Porta local do backend
+    environment:
+      - DATABASE_URL=postgresql://postgres.remmumxbguvoxkztiofu:9m9a1t6Ma**@aws-1-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    container_name: db
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres.remmumxbguvoxkztiofu
+      - POSTGRES_PASSWORD=9m9a1t6Ma**
+      - POSTGRES_DB=postgres
+
+volumes:
+  postgres_data:
