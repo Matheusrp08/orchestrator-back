@@ -1,0 +1,529 @@
+{
+  "project" : {
+    "basePackage" : "orchestrator",
+    "name" : "orchestrator"
+  },
+  "architecture" : {
+    "controllers" : [ {
+      "package" : "orchestrator.controller",
+      "className" : "AgenteController",
+      "fullClassName" : "orchestrator.controller.AgenteController",
+      "annotations" : [ "RestController", "RequestMapping" ],
+      "methods" : [ {
+        "name" : "getAllAgentes",
+        "returnType" : "List"
+      }, {
+        "name" : "getAgenteById",
+        "returnType" : "AgenteDTO"
+      }, {
+        "name" : "createAgente",
+        "returnType" : "AgenteDTO"
+      }, {
+        "name" : "updateAgente",
+        "returnType" : "AgenteDTO"
+      }, {
+        "name" : "deleteAgente",
+        "returnType" : "void"
+      } ],
+      "sourceCode" : "package orchestrator.controller;\r\n\r\n//----------------------------\r\n//Agente Controller\r\n//----------------------------\r\n\r\nimport java.util.List;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.DeleteMapping;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.PathVariable;\r\nimport org.springframework.web.bind.annotation.PostMapping;\r\nimport org.springframework.web.bind.annotation.PutMapping;\r\nimport org.springframework.web.bind.annotation.RequestBody;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n\r\nimport orchestrator.dto.AgenteDTO;\r\nimport orchestrator.service.AgenteService;\r\n\r\n@RestController\r\n@RequestMapping(\"/api/agentes\")\r\npublic class AgenteController {\r\n @Autowired\r\n private AgenteService agenteService;\r\n\r\n @GetMapping\r\n public List<AgenteDTO> getAllAgentes() {\r\n     return agenteService.findAll();\r\n }\r\n\r\n @GetMapping(\"/{id}\")\r\n public AgenteDTO getAgenteById(@PathVariable Long id) {\r\n     return agenteService.findById(id);\r\n }\r\n\r\n @PostMapping\r\n public AgenteDTO createAgente(@RequestBody AgenteDTO agenteDTO) {\r\n     return agenteService.save(agenteDTO);\r\n }\r\n\r\n @PutMapping(\"/{id}\")\r\n public AgenteDTO updateAgente(@PathVariable Long id, @RequestBody AgenteDTO agenteDTO) {\r\n     agenteDTO.setId(id);\r\n     return agenteService.save(agenteDTO);\r\n }\r\n\r\n @DeleteMapping(\"/{id}\")\r\n public void deleteAgente(@PathVariable Long id) {\r\n     agenteService.deleteById(id);\r\n }\r\n}"
+    }, {
+      "package" : "orchestrator.controller",
+      "className" : "ExecucaoController",
+      "fullClassName" : "orchestrator.controller.ExecucaoController",
+      "annotations" : [ "RestController", "RequestMapping" ],
+      "methods" : [ {
+        "name" : "getAllExecucoes",
+        "returnType" : "List"
+      }, {
+        "name" : "getExecucaoById",
+        "returnType" : "ExecucaoDTO"
+      }, {
+        "name" : "createExecucao",
+        "returnType" : "ExecucaoDTO"
+      }, {
+        "name" : "updateExecucao",
+        "returnType" : "ExecucaoDTO"
+      }, {
+        "name" : "deleteExecucao",
+        "returnType" : "void"
+      } ],
+      "sourceCode" : "package orchestrator.controller;\r\n\r\n//----------------------------\r\n//Execucao Controller\r\n//----------------------------\r\n\r\nimport java.util.List;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.DeleteMapping;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.PathVariable;\r\nimport org.springframework.web.bind.annotation.PostMapping;\r\nimport org.springframework.web.bind.annotation.PutMapping;\r\nimport org.springframework.web.bind.annotation.RequestBody;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n\r\nimport orchestrator.dto.ExecucaoDTO;\r\nimport orchestrator.service.ExecucaoService;\r\n\r\n@RestController\r\n@RequestMapping(\"/api/execucoes\")\r\npublic class ExecucaoController {\r\n @Autowired\r\n private ExecucaoService execucaoService;\r\n\r\n @GetMapping\r\n public List<ExecucaoDTO> getAllExecucoes() {\r\n     return execucaoService.findAll();\r\n }\r\n\r\n @GetMapping(\"/{id}\")\r\n public ExecucaoDTO getExecucaoById(@PathVariable Long id) {\r\n     return execucaoService.findById(id);\r\n }\r\n\r\n @PostMapping\r\n public ExecucaoDTO createExecucao(@RequestBody ExecucaoDTO execucaoDTO) {\r\n     return execucaoService.save(execucaoDTO);\r\n }\r\n\r\n @PutMapping(\"/{id}\")\r\n public ExecucaoDTO updateExecucao(@PathVariable Long id, @RequestBody ExecucaoDTO execucaoDTO) {\r\n     execucaoDTO.setId(id);\r\n     return execucaoService.save(execucaoDTO);\r\n }\r\n\r\n @DeleteMapping(\"/{id}\")\r\n public void deleteExecucao(@PathVariable Long id) {\r\n     execucaoService.deleteById(id);\r\n }\r\n}"
+    }, {
+      "package" : "orchestrator.controller",
+      "className" : "FluxoController",
+      "fullClassName" : "orchestrator.controller.FluxoController",
+      "annotations" : [ "RestController", "RequestMapping" ],
+      "methods" : [ {
+        "name" : "createFluxo",
+        "returnType" : "FluxoDTO"
+      }, {
+        "name" : "getAllFluxos",
+        "returnType" : "List"
+      }, {
+        "name" : "getFluxoById",
+        "returnType" : "FluxoDTO"
+      }, {
+        "name" : "deleteFluxo",
+        "returnType" : "void"
+      }, {
+        "name" : "updateFluxo",
+        "returnType" : "FluxoDTO"
+      } ],
+      "sourceCode" : "package orchestrator.controller;\r\n\r\n//----------------------------\r\n//Fluxo Controller\r\n//----------------------------\r\n\r\nimport java.util.List;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.DeleteMapping;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.PathVariable;\r\nimport org.springframework.web.bind.annotation.PostMapping;\r\nimport org.springframework.web.bind.annotation.PutMapping;\r\nimport org.springframework.web.bind.annotation.RequestBody;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n\r\nimport orchestrator.dto.FluxoDTO;\r\nimport orchestrator.service.FluxoService;\r\n\r\n@RestController\r\n@RequestMapping(\"/api/fluxos\")\r\npublic class FluxoController {\r\n @Autowired\r\n private FluxoService fluxoService;\r\n\r\n @GetMapping\r\n public List<FluxoDTO> getAllFluxos() {\r\n     return fluxoService.findAll();\r\n }\r\n\r\n @GetMapping(\"/{id}\")\r\n public FluxoDTO getFluxoById(@PathVariable Long id) {\r\n     return fluxoService.findById(id);\r\n }\r\n\r\n @PostMapping\r\n public FluxoDTO createFluxo(@RequestBody FluxoDTO fluxoDTO) {\r\n     return fluxoService.save(fluxoDTO);\r\n }\r\n\r\n @PutMapping(\"/{id}\")\r\n public FluxoDTO updateFluxo(@PathVariable Long id, @RequestBody FluxoDTO fluxoDTO) {\r\n     fluxoDTO.setId(id);\r\n     return fluxoService.save(fluxoDTO);\r\n }\r\n\r\n @DeleteMapping(\"/{id}\")\r\n public void deleteFluxo(@PathVariable Long id) {\r\n     fluxoService.deleteById(id);\r\n }\r\n}"
+    }, {
+      "package" : "orchestrator.controller",
+      "className" : "GitOperationController",
+      "fullClassName" : "orchestrator.controller.GitOperationController",
+      "annotations" : [ "RestController", "RequestMapping" ],
+      "methods" : [ {
+        "name" : "getGitOperationById",
+        "returnType" : "ResponseEntity"
+      }, {
+        "name" : "getAllGitOperations",
+        "returnType" : "ResponseEntity"
+      }, {
+        "name" : "lambda$1",
+        "returnType" : "ResponseEntity"
+      }, {
+        "name" : "lambda$2",
+        "returnType" : "ResponseEntity"
+      }, {
+        "name" : "getGitOperationsByExecucaoId",
+        "returnType" : "ResponseEntity"
+      }, {
+        "name" : "getGitOperationsByWorkspaceId",
+        "returnType" : "ResponseEntity"
+      }, {
+        "name" : "createGitOperation",
+        "returnType" : "ResponseEntity"
+      }, {
+        "name" : "convertToDTO",
+        "returnType" : "GitOperationDTO"
+      }, {
+        "name" : "deleteGitOperation",
+        "returnType" : "ResponseEntity"
+      }, {
+        "name" : "convertToEntity",
+        "returnType" : "GitOperation"
+      }, {
+        "name" : "updateGitOperation",
+        "returnType" : "ResponseEntity"
+      } ],
+      "sourceCode" : "package orchestrator.controller;\r\n\r\nimport java.util.List;\r\nimport java.util.Optional;\r\nimport java.util.stream.Collectors;\r\n\r\nimport org.springframework.beans.BeanUtils;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.http.HttpStatus;\r\nimport org.springframework.http.ResponseEntity;\r\nimport org.springframework.web.bind.annotation.DeleteMapping;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.PathVariable;\r\nimport org.springframework.web.bind.annotation.PostMapping;\r\nimport org.springframework.web.bind.annotation.PutMapping;\r\nimport org.springframework.web.bind.annotation.RequestBody;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n\r\nimport orchestrator.dto.GitOperationDTO;\r\nimport orchestrator.entity.GitOperation;\r\nimport orchestrator.service.GitOperationService;\r\n\r\n@RestController\r\n@RequestMapping(\"/api/git-operations\")\r\npublic class GitOperationController {\r\n\r\n    private final GitOperationService gitOperationService;\r\n\r\n    @Autowired\r\n    public GitOperationController(GitOperationService gitOperationService) {\r\n        this.gitOperationService = gitOperationService;\r\n    }\r\n\r\n    @GetMapping\r\n    public ResponseEntity<List<GitOperationDTO>> getAllGitOperations() {\r\n        List<GitOperation> gitOperations = gitOperationService.getAllGitOperations();\r\n        List<GitOperationDTO> gitOperationDTOs = gitOperations.stream()\r\n                .map(this::convertToDTO)\r\n                .collect(Collectors.toList());\r\n        return new ResponseEntity<>(gitOperationDTOs, HttpStatus.OK);\r\n    }\r\n\r\n    @GetMapping(\"/{id}\")\r\n    public ResponseEntity<GitOperationDTO> getGitOperationById(@PathVariable Long id) {\r\n        Optional<GitOperation> gitOperation = gitOperationService.getGitOperationById(id);\r\n        return gitOperation.map(value -> new ResponseEntity<>(convertToDTO(value), HttpStatus.OK))\r\n                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));\r\n    }\r\n\r\n    @GetMapping(\"/workspace/{workspaceId}\")\r\n    public ResponseEntity<List<GitOperationDTO>> getGitOperationsByWorkspaceId(@PathVariable Long workspaceId) {\r\n        List<GitOperation> gitOperations = gitOperationService.getGitOperationsByWorkspaceId(workspaceId);\r\n        List<GitOperationDTO> gitOperationDTOs = gitOperations.stream()\r\n                .map(this::convertToDTO)\r\n                .collect(Collectors.toList());\r\n        return new ResponseEntity<>(gitOperationDTOs, HttpStatus.OK);\r\n    }\r\n\r\n    @GetMapping(\"/execucao/{execucaoId}\")\r\n    public ResponseEntity<List<GitOperationDTO>> getGitOperationsByExecucaoId(@PathVariable Long execucaoId) {\r\n        List<GitOperation> gitOperations = gitOperationService.getGitOperationsByExecucaoId(execucaoId);\r\n        List<GitOperationDTO> gitOperationDTOs = gitOperations.stream()\r\n                .map(this::convertToDTO)\r\n                .collect(Collectors.toList());\r\n        return new ResponseEntity<>(gitOperationDTOs, HttpStatus.OK);\r\n    }\r\n\r\n    @PostMapping\r\n    public ResponseEntity<GitOperationDTO> createGitOperation(@RequestBody GitOperationDTO gitOperationDTO) {\r\n        GitOperation gitOperation = convertToEntity(gitOperationDTO);\r\n        GitOperation createdGitOperation = gitOperationService.createGitOperation(gitOperation);\r\n        return new ResponseEntity<>(convertToDTO(createdGitOperation), HttpStatus.CREATED);\r\n    }\r\n\r\n    @PutMapping(\"/{id}\")\r\n    public ResponseEntity<GitOperationDTO> updateGitOperation(@PathVariable Long id, @RequestBody GitOperationDTO gitOperationDTO) {\r\n        GitOperation gitOperation = convertToEntity(gitOperationDTO);\r\n        GitOperation updatedGitOperation = gitOperationService.updateGitOperation(id, gitOperation);\r\n        return new ResponseEntity<>(convertToDTO(updatedGitOperation), HttpStatus.OK);\r\n    }\r\n\r\n    @DeleteMapping(\"/{id}\")\r\n    public ResponseEntity<Void> deleteGitOperation(@PathVariable Long id) {\r\n        gitOperationService.deleteGitOperation(id);\r\n        return new ResponseEntity<>(HttpStatus.NO_CONTENT);\r\n    }\r\n\r\n    private GitOperationDTO convertToDTO(GitOperation gitOperation) {\r\n        GitOperationDTO gitOperationDTO = new GitOperationDTO();\r\n        BeanUtils.copyProperties(gitOperation, gitOperationDTO);\r\n        return gitOperationDTO;\r\n    }\r\n\r\n    private GitOperation convertToEntity(GitOperationDTO gitOperationDTO) {\r\n        GitOperation gitOperation = new GitOperation();\r\n        BeanUtils.copyProperties(gitOperationDTO, gitOperation);\r\n        return gitOperation;\r\n    }\r\n}"
+    }, {
+      "package" : "orchestrator.controller",
+      "className" : "LogExecucaoController",
+      "fullClassName" : "orchestrator.controller.LogExecucaoController",
+      "annotations" : [ "RestController", "RequestMapping" ],
+      "methods" : [ {
+        "name" : "getAllLogExecucoes",
+        "returnType" : "List"
+      }, {
+        "name" : "createLogExecucao",
+        "returnType" : "LogExecucaoDTO"
+      }, {
+        "name" : "updateLogExecucao",
+        "returnType" : "LogExecucaoDTO"
+      }, {
+        "name" : "deleteLogExecucao",
+        "returnType" : "void"
+      }, {
+        "name" : "getLogExecucaoById",
+        "returnType" : "LogExecucaoDTO"
+      } ],
+      "sourceCode" : "package orchestrator.controller;\r\n\r\n//----------------------------\r\n//LogExecucao Controller\r\n//----------------------------\r\n\r\nimport java.util.List;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.DeleteMapping;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.PathVariable;\r\nimport org.springframework.web.bind.annotation.PostMapping;\r\nimport org.springframework.web.bind.annotation.PutMapping;\r\nimport org.springframework.web.bind.annotation.RequestBody;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n\r\nimport orchestrator.dto.LogExecucaoDTO;\r\nimport orchestrator.service.LogExecucaoService;\r\n\r\n@RestController\r\n@RequestMapping(\"/api/log-execucoes\")\r\npublic class LogExecucaoController {\r\n @Autowired\r\n private LogExecucaoService logExecucaoService;\r\n\r\n @GetMapping\r\n public List<LogExecucaoDTO> getAllLogExecucoes() {\r\n     return logExecucaoService.findAll();\r\n }\r\n\r\n @GetMapping(\"/{id}\")\r\n public LogExecucaoDTO getLogExecucaoById(@PathVariable Long id) {\r\n     return logExecucaoService.findById(id);\r\n }\r\n\r\n @PostMapping\r\n public LogExecucaoDTO createLogExecucao(@RequestBody LogExecucaoDTO logExecucaoDTO) {\r\n     return logExecucaoService.save(logExecucaoDTO);\r\n }\r\n\r\n @PutMapping(\"/{id}\")\r\n public LogExecucaoDTO updateLogExecucao(@PathVariable Long id, @RequestBody LogExecucaoDTO logExecucaoDTO) {\r\n     logExecucaoDTO.setId(id);\r\n     return logExecucaoService.save(logExecucaoDTO);\r\n }\r\n\r\n @DeleteMapping(\"/{id}\")\r\n public void deleteLogExecucao(@PathVariable Long id) {\r\n     logExecucaoService.deleteById(id);\r\n }\r\n}"
+    }, {
+      "package" : "orchestrator.controller",
+      "className" : "PassoExecucaoController",
+      "fullClassName" : "orchestrator.controller.PassoExecucaoController",
+      "annotations" : [ "RestController", "RequestMapping" ],
+      "methods" : [ {
+        "name" : "deletePassoExecucao",
+        "returnType" : "void"
+      }, {
+        "name" : "createPassoExecucao",
+        "returnType" : "PassoExecucaoDTO"
+      }, {
+        "name" : "getPassoExecucaoById",
+        "returnType" : "PassoExecucaoDTO"
+      }, {
+        "name" : "updatePassoExecucao",
+        "returnType" : "PassoExecucaoDTO"
+      }, {
+        "name" : "getAllPassoExecucoes",
+        "returnType" : "List"
+      } ],
+      "sourceCode" : "package orchestrator.controller;\r\n\r\n//----------------------------\r\n//PassoExecucao Controller\r\n//----------------------------\r\n\r\nimport java.util.List;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.DeleteMapping;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.PathVariable;\r\nimport org.springframework.web.bind.annotation.PostMapping;\r\nimport org.springframework.web.bind.annotation.PutMapping;\r\nimport org.springframework.web.bind.annotation.RequestBody;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n\r\nimport orchestrator.dto.PassoExecucaoDTO;\r\nimport orchestrator.service.PassoExecucaoService;\r\n\r\n@RestController\r\n@RequestMapping(\"/api/passo-execucoes\")\r\npublic class PassoExecucaoController {\r\n @Autowired\r\n private PassoExecucaoService passoExecucaoService;\r\n\r\n @GetMapping\r\n public List<PassoExecucaoDTO> getAllPassoExecucoes() {\r\n     return passoExecucaoService.findAll();\r\n }\r\n\r\n @GetMapping(\"/{id}\")\r\n public PassoExecucaoDTO getPassoExecucaoById(@PathVariable Long id) {\r\n     return passoExecucaoService.findById(id);\r\n }\r\n\r\n @PostMapping\r\n public PassoExecucaoDTO createPassoExecucao(@RequestBody PassoExecucaoDTO passoExecucaoDTO) {\r\n     return passoExecucaoService.save(passoExecucaoDTO);\r\n }\r\n\r\n @PutMapping(\"/{id}\")\r\n public PassoExecucaoDTO updatePassoExecucao(@PathVariable Long id, @RequestBody PassoExecucaoDTO passoExecucaoDTO) {\r\n     passoExecucaoDTO.setId(id);\r\n     return passoExecucaoService.save(passoExecucaoDTO);\r\n }\r\n\r\n @DeleteMapping(\"/{id}\")\r\n public void deletePassoExecucao(@PathVariable Long id) {\r\n     passoExecucaoService.deleteById(id);\r\n }\r\n}"
+    }, {
+      "package" : "orchestrator.controller",
+      "className" : "TenantController",
+      "fullClassName" : "orchestrator.controller.TenantController",
+      "annotations" : [ "RestController", "RequestMapping" ],
+      "methods" : [ {
+        "name" : "getTenantById",
+        "returnType" : "TenantDTO"
+      }, {
+        "name" : "updateTenant",
+        "returnType" : "TenantDTO"
+      }, {
+        "name" : "deleteTenant",
+        "returnType" : "void"
+      }, {
+        "name" : "getAllTenants",
+        "returnType" : "List"
+      }, {
+        "name" : "createTenant",
+        "returnType" : "TenantDTO"
+      } ],
+      "sourceCode" : "package orchestrator.controller;\r\n\r\nimport java.util.List;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.DeleteMapping;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.PathVariable;\r\nimport org.springframework.web.bind.annotation.PostMapping;\r\nimport org.springframework.web.bind.annotation.PutMapping;\r\nimport org.springframework.web.bind.annotation.RequestBody;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n\r\nimport orchestrator.dto.TenantDTO;\r\nimport orchestrator.service.TenantService;\r\n\r\n@RestController\r\n@RequestMapping(\"/api/tenants\")\r\npublic class TenantController {\r\n    @Autowired\r\n    private TenantService tenantService;\r\n\r\n    @GetMapping\r\n    public List<TenantDTO> getAllTenants() {\r\n        return tenantService.findAll();\r\n    }\r\n\r\n    @GetMapping(\"/{id}\")\r\n    public TenantDTO getTenantById(@PathVariable Long id) {\r\n        return tenantService.findById(id);\r\n    }\r\n\r\n    @PostMapping\r\n    public TenantDTO createTenant(@RequestBody TenantDTO tenantDTO) {\r\n        return tenantService.save(tenantDTO);\r\n    }\r\n\r\n    @PutMapping(\"/{id}\")\r\n    public TenantDTO updateTenant(@PathVariable Long id, @RequestBody TenantDTO tenantDTO) {\r\n        tenantDTO.setId(id);\r\n        return tenantService.save(tenantDTO);\r\n    }\r\n\r\n    @DeleteMapping(\"/{id}\")\r\n    public void deleteTenant(@PathVariable Long id) {\r\n        tenantService.deleteById(id);\r\n    }\r\n}"
+    }, {
+      "package" : "orchestrator.controller",
+      "className" : "UsuarioController",
+      "fullClassName" : "orchestrator.controller.UsuarioController",
+      "annotations" : [ "RestController", "RequestMapping" ],
+      "methods" : [ {
+        "name" : "getUsuarioById",
+        "returnType" : "UsuarioDTO"
+      }, {
+        "name" : "getAllUsuarios",
+        "returnType" : "List"
+      }, {
+        "name" : "createUsuario",
+        "returnType" : "UsuarioDTO"
+      }, {
+        "name" : "deleteUsuario",
+        "returnType" : "void"
+      }, {
+        "name" : "updateUsuario",
+        "returnType" : "UsuarioDTO"
+      } ],
+      "sourceCode" : "package orchestrator.controller;\r\n\r\n//----------------------------\r\n//Usuario Controller\r\n//----------------------------\r\n\r\nimport java.util.List;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.web.bind.annotation.DeleteMapping;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.PathVariable;\r\nimport org.springframework.web.bind.annotation.PostMapping;\r\nimport org.springframework.web.bind.annotation.PutMapping;\r\nimport org.springframework.web.bind.annotation.RequestBody;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n\r\nimport orchestrator.dto.UsuarioDTO;\r\nimport orchestrator.service.UsuarioService;\r\n\r\n@RestController\r\n@RequestMapping(\"/api/usuarios\")\r\npublic class UsuarioController {\r\n @Autowired\r\n private UsuarioService usuarioService;\r\n\r\n @GetMapping\r\n public List<UsuarioDTO> getAllUsuarios() {\r\n     return usuarioService.findAll();\r\n }\r\n\r\n @GetMapping(\"/{id}\")\r\n public UsuarioDTO getUsuarioById(@PathVariable Long id) {\r\n     return usuarioService.findById(id);\r\n }\r\n\r\n @PostMapping\r\n public UsuarioDTO createUsuario(@RequestBody UsuarioDTO usuarioDTO) {\r\n     return usuarioService.save(usuarioDTO);\r\n }\r\n\r\n @PutMapping(\"/{id}\")\r\n public UsuarioDTO updateUsuario(@PathVariable Long id, @RequestBody UsuarioDTO usuarioDTO) {\r\n     usuarioDTO.setId(id);\r\n     return usuarioService.save(usuarioDTO);\r\n }\r\n\r\n @DeleteMapping(\"/{id}\")\r\n public void deleteUsuario(@PathVariable Long id) {\r\n     usuarioService.deleteById(id);\r\n }\r\n}"
+    }, {
+      "package" : "orchestrator.controller",
+      "className" : "WorkspaceController",
+      "fullClassName" : "orchestrator.controller.WorkspaceController",
+      "annotations" : [ "RestController", "RequestMapping" ],
+      "methods" : [ {
+        "name" : "lambda$1",
+        "returnType" : "ResponseEntity"
+      }, {
+        "name" : "lambda$2",
+        "returnType" : "ResponseEntity"
+      }, {
+        "name" : "convertToDTO",
+        "returnType" : "WorkspaceDTO"
+      }, {
+        "name" : "getWorkspaceById",
+        "returnType" : "ResponseEntity"
+      }, {
+        "name" : "convertToEntity",
+        "returnType" : "Workspace"
+      }, {
+        "name" : "createWorkspace",
+        "returnType" : "ResponseEntity"
+      }, {
+        "name" : "getAllWorkspaces",
+        "returnType" : "ResponseEntity"
+      }, {
+        "name" : "deleteWorkspace",
+        "returnType" : "ResponseEntity"
+      }, {
+        "name" : "updateWorkspace",
+        "returnType" : "ResponseEntity"
+      } ],
+      "sourceCode" : "package orchestrator.controller;\r\n\r\nimport java.util.List;\r\nimport java.util.Optional;\r\nimport java.util.stream.Collectors;\r\n\r\nimport org.springframework.beans.BeanUtils;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.http.HttpStatus;\r\nimport org.springframework.http.ResponseEntity;\r\nimport org.springframework.web.bind.annotation.DeleteMapping;\r\nimport org.springframework.web.bind.annotation.GetMapping;\r\nimport org.springframework.web.bind.annotation.PathVariable;\r\nimport org.springframework.web.bind.annotation.PostMapping;\r\nimport org.springframework.web.bind.annotation.PutMapping;\r\nimport org.springframework.web.bind.annotation.RequestBody;\r\nimport org.springframework.web.bind.annotation.RequestMapping;\r\nimport org.springframework.web.bind.annotation.RestController;\r\n\r\nimport orchestrator.dto.WorkspaceDTO;\r\nimport orchestrator.entity.Workspace;\r\nimport orchestrator.service.WorkspaceService;\r\n\r\n@RestController\r\n@RequestMapping(\"/api/workspaces\")\r\npublic class WorkspaceController {\r\n\r\n    private final WorkspaceService workspaceService;\r\n\r\n    @Autowired\r\n    public WorkspaceController(WorkspaceService workspaceService) {\r\n        this.workspaceService = workspaceService;\r\n    }\r\n\r\n    @GetMapping\r\n    public ResponseEntity<List<WorkspaceDTO>> getAllWorkspaces() {\r\n        List<Workspace> workspaces = workspaceService.getAllWorkspaces();\r\n        List<WorkspaceDTO> workspaceDTOs = workspaces.stream()\r\n                .map(this::convertToDTO)\r\n                .collect(Collectors.toList());\r\n        return new ResponseEntity<>(workspaceDTOs, HttpStatus.OK);\r\n    }\r\n\r\n    @GetMapping(\"/{id}\")\r\n    public ResponseEntity<WorkspaceDTO> getWorkspaceById(@PathVariable Long id) {\r\n        Optional<Workspace> workspace = workspaceService.getWorkspaceById(id);\r\n        return workspace.map(value -> new ResponseEntity<>(convertToDTO(value), HttpStatus.OK))\r\n                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));\r\n    }\r\n\r\n    @PostMapping\r\n    public ResponseEntity<WorkspaceDTO> createWorkspace(@RequestBody WorkspaceDTO workspaceDTO) {\r\n        Workspace workspace = convertToEntity(workspaceDTO);\r\n        Workspace createdWorkspace = workspaceService.createWorkspace(workspace);\r\n        return new ResponseEntity<>(convertToDTO(createdWorkspace), HttpStatus.CREATED);\r\n    }\r\n\r\n    @PutMapping(\"/{id}\")\r\n    public ResponseEntity<WorkspaceDTO> updateWorkspace(@PathVariable Long id, @RequestBody WorkspaceDTO workspaceDTO) {\r\n        Workspace workspace = convertToEntity(workspaceDTO);\r\n        Workspace updatedWorkspace = workspaceService.updateWorkspace(id, workspace);\r\n        return new ResponseEntity<>(convertToDTO(updatedWorkspace), HttpStatus.OK);\r\n    }\r\n\r\n    @DeleteMapping(\"/{id}\")\r\n    public ResponseEntity<Void> deleteWorkspace(@PathVariable Long id) {\r\n        workspaceService.deleteWorkspace(id);\r\n        return new ResponseEntity<>(HttpStatus.NO_CONTENT);\r\n    }\r\n\r\n    private WorkspaceDTO convertToDTO(Workspace workspace) {\r\n        WorkspaceDTO workspaceDTO = new WorkspaceDTO();\r\n        BeanUtils.copyProperties(workspace, workspaceDTO);\r\n        return workspaceDTO;\r\n    }\r\n\r\n    private Workspace convertToEntity(WorkspaceDTO workspaceDTO) {\r\n        Workspace workspace = new Workspace();\r\n        BeanUtils.copyProperties(workspaceDTO, workspace);\r\n        return workspace;\r\n    }\r\n}"
+    } ],
+    "services" : [ {
+      "package" : "orchestrator.service",
+      "className" : "AgenteService",
+      "fullClassName" : "orchestrator.service.AgenteService",
+      "annotations" : [ "Service" ],
+      "methods" : [ {
+        "name" : "save",
+        "returnType" : "AgenteDTO"
+      }, {
+        "name" : "findAll",
+        "returnType" : "List"
+      }, {
+        "name" : "deleteById",
+        "returnType" : "void"
+      }, {
+        "name" : "findById",
+        "returnType" : "AgenteDTO"
+      }, {
+        "name" : "toEntity",
+        "returnType" : "Agente"
+      }, {
+        "name" : "toDTO",
+        "returnType" : "AgenteDTO"
+      } ],
+      "sourceCode" : "package orchestrator.service;\r\n\r\n//----------------------------\r\n//Agente Service\r\n//----------------------------\r\n\r\nimport java.util.List;\r\nimport java.util.stream.Collectors;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport orchestrator.dto.AgenteDTO;\r\nimport orchestrator.entity.Agente;\r\nimport orchestrator.repository.AgenteRepository;\r\n\r\n@Service\r\npublic class AgenteService {\r\n    @Autowired\r\n    private AgenteRepository agenteRepository;\r\n\r\n    public List<AgenteDTO> findAll() {\r\n        return agenteRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());\r\n    }\r\n\r\n    public AgenteDTO findById(Long id) {\r\n        return agenteRepository.findById(id).map(this::toDTO).orElse(null);\r\n    }\r\n\r\n    public AgenteDTO save(AgenteDTO agenteDTO) {\r\n        Agente agente = toEntity(agenteDTO);\r\n        return toDTO(agenteRepository.save(agente));\r\n    }\r\n\r\n    public void deleteById(Long id) {\r\n        agenteRepository.deleteById(id);\r\n    }\r\n\r\n    private AgenteDTO toDTO(Agente agente) {\r\n        AgenteDTO dto = new AgenteDTO();\r\n        dto.setId(agente.getId());\r\n        dto.setNome(agente.getNome());\r\n        dto.setVersao(agente.getVersao());\r\n        dto.setTipo(agente.getTipo());\r\n        dto.setConfiguracoes(agente.getConfiguracoes());\r\n        dto.setStatus(agente.getStatus());\r\n        dto.setDataCriacao(agente.getDataCriacao());\r\n        dto.setDataAtualizacao(agente.getDataAtualizacao());\r\n        dto.setTenantId(agente.getTenantId());\r\n        return dto;\r\n    }\r\n\r\n    private Agente toEntity(AgenteDTO agenteDTO) {\r\n        Agente agente = new Agente();\r\n        agente.setId(agenteDTO.getId());\r\n        agente.setNome(agenteDTO.getNome());\r\n        agente.setVersao(agenteDTO.getVersao());\r\n        agente.setTipo(agenteDTO.getTipo());\r\n        agente.setConfiguracoes(agenteDTO.getConfiguracoes());\r\n        agente.setStatus(agenteDTO.getStatus());\r\n        agente.setDataCriacao(agenteDTO.getDataCriacao());\r\n        agente.setDataAtualizacao(agenteDTO.getDataAtualizacao());\r\n        agente.setTenantId(agenteDTO.getTenantId());\r\n        return agente;\r\n    }\r\n}"
+    }, {
+      "package" : "orchestrator.service",
+      "className" : "ExecucaoService",
+      "fullClassName" : "orchestrator.service.ExecucaoService",
+      "annotations" : [ "Service" ],
+      "methods" : [ {
+        "name" : "save",
+        "returnType" : "ExecucaoDTO"
+      }, {
+        "name" : "findAll",
+        "returnType" : "List"
+      }, {
+        "name" : "deleteById",
+        "returnType" : "void"
+      }, {
+        "name" : "findById",
+        "returnType" : "ExecucaoDTO"
+      }, {
+        "name" : "toEntity",
+        "returnType" : "Execucao"
+      }, {
+        "name" : "toDTO",
+        "returnType" : "ExecucaoDTO"
+      } ],
+      "sourceCode" : "package orchestrator.service;\r\n\r\n//----------------------------\r\n//Execucao Service\r\n//----------------------------\r\n\r\nimport java.util.List;\r\nimport java.util.stream.Collectors;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport orchestrator.dto.ExecucaoDTO;\r\nimport orchestrator.entity.Execucao;\r\nimport orchestrator.repository.ExecucaoRepository;\r\n\r\n@Service\r\npublic class ExecucaoService {\r\n @Autowired\r\n private ExecucaoRepository execucaoRepository;\r\n\r\n public List<ExecucaoDTO> findAll() {\r\n     return execucaoRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());\r\n }\r\n\r\n public ExecucaoDTO findById(Long id) {\r\n     return execucaoRepository.findById(id).map(this::toDTO).orElse(null);\r\n }\r\n\r\n public ExecucaoDTO save(ExecucaoDTO execucaoDTO) {\r\n     Execucao execucao = toEntity(execucaoDTO);\r\n     return toDTO(execucaoRepository.save(execucao));\r\n }\r\n\r\n public void deleteById(Long id) {\r\n     execucaoRepository.deleteById(id);\r\n }\r\n\r\n private ExecucaoDTO toDTO(Execucao execucao) {\r\n     ExecucaoDTO dto = new ExecucaoDTO();\r\n     dto.setId(execucao.getId());\r\n     dto.setFluxoId(execucao.getFluxoId());\r\n     dto.setStatus(execucao.getStatus());\r\n     dto.setInputs(execucao.getInputs());\r\n     dto.setOutputs(execucao.getOutputs());\r\n     dto.setErros(execucao.getErros());\r\n     dto.setDataInicio(execucao.getDataInicio());\r\n     dto.setDataFim(execucao.getDataFim());\r\n     dto.setTenantId(execucao.getTenantId());\r\n     return dto;\r\n }\r\n\r\n private Execucao toEntity(ExecucaoDTO execucaoDTO) {\r\n     Execucao execucao = new Execucao();\r\n     execucao.setId(execucaoDTO.getId());\r\n     execucao.setFluxoId(execucaoDTO.getFluxoId());\r\n     execucao.setStatus(execucaoDTO.getStatus());\r\n     execucao.setInputs(execucaoDTO.getInputs());\r\n     execucao.setOutputs(execucaoDTO.getOutputs());\r\n     execucao.setErros(execucaoDTO.getErros());\r\n     execucao.setDataInicio(execucaoDTO.getDataInicio());\r\n     execucao.setDataFim(execucaoDTO.getDataFim());\r\n     execucao.setTenantId(execucaoDTO.getTenantId());\r\n     return execucao;\r\n }\r\n}"
+    }, {
+      "package" : "orchestrator.service",
+      "className" : "FluxoService",
+      "fullClassName" : "orchestrator.service.FluxoService",
+      "annotations" : [ "Service" ],
+      "methods" : [ {
+        "name" : "save",
+        "returnType" : "FluxoDTO"
+      }, {
+        "name" : "findAll",
+        "returnType" : "List"
+      }, {
+        "name" : "deleteById",
+        "returnType" : "void"
+      }, {
+        "name" : "findById",
+        "returnType" : "FluxoDTO"
+      }, {
+        "name" : "toEntity",
+        "returnType" : "Fluxo"
+      }, {
+        "name" : "toDTO",
+        "returnType" : "FluxoDTO"
+      } ],
+      "sourceCode" : "package orchestrator.service;\r\n\r\n//----------------------------\r\n//Fluxo Service\r\n//----------------------------\r\n\r\nimport java.util.List;\r\nimport java.util.stream.Collectors;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport orchestrator.dto.FluxoDTO;\r\nimport orchestrator.entity.Fluxo;\r\nimport orchestrator.repository.FluxoRepository;\r\n\r\n@Service\r\npublic class FluxoService {\r\n    @Autowired\r\n    private FluxoRepository fluxoRepository;\r\n\r\n    public List<FluxoDTO> findAll() {\r\n        return fluxoRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());\r\n    }\r\n\r\n    public FluxoDTO findById(Long id) {\r\n        return fluxoRepository.findById(id).map(this::toDTO).orElse(null);\r\n    }\r\n\r\n    public FluxoDTO save(FluxoDTO fluxoDTO) {\r\n        Fluxo fluxo = toEntity(fluxoDTO);\r\n        return toDTO(fluxoRepository.save(fluxo));\r\n    }\r\n\r\n    public void deleteById(Long id) {\r\n        fluxoRepository.deleteById(id);\r\n    }\r\n\r\n    private FluxoDTO toDTO(Fluxo fluxo) {\r\n        FluxoDTO dto = new FluxoDTO();\r\n        dto.setId(fluxo.getId());\r\n        dto.setNome(fluxo.getNome());\r\n        dto.setVersao(fluxo.getVersao());\r\n        dto.setDefinicao(fluxo.getDefinicao());\r\n        dto.setStatus(fluxo.getStatus());\r\n        dto.setDataCriacao(fluxo.getDataCriacao());\r\n        dto.setDataAtualizacao(fluxo.getDataAtualizacao());\r\n        dto.setTenantId(fluxo.getTenantId());\r\n        return dto;\r\n    }\r\n\r\n    private Fluxo toEntity(FluxoDTO fluxoDTO) {\r\n        Fluxo fluxo = new Fluxo();\r\n        fluxo.setId(fluxoDTO.getId());\r\n        fluxo.setNome(fluxoDTO.getNome());\r\n        fluxo.setVersao(fluxoDTO.getVersao());\r\n        fluxo.setDefinicao(fluxoDTO.getDefinicao());\r\n        fluxo.setStatus(fluxoDTO.getStatus());\r\n        fluxo.setDataCriacao(fluxoDTO.getDataCriacao());\r\n        fluxo.setDataAtualizacao(fluxoDTO.getDataAtualizacao());\r\n        fluxo.setTenantId(fluxoDTO.getTenantId());\r\n        return fluxo;\r\n    }\r\n}"
+    }, {
+      "package" : "orchestrator.service",
+      "className" : "GitOperationService",
+      "fullClassName" : "orchestrator.service.GitOperationService",
+      "annotations" : [ "Service" ],
+      "methods" : [ {
+        "name" : "getGitOperationById",
+        "returnType" : "Optional"
+      }, {
+        "name" : "getAllGitOperations",
+        "returnType" : "List"
+      }, {
+        "name" : "getGitOperationsByExecucaoId",
+        "returnType" : "List"
+      }, {
+        "name" : "getGitOperationsByWorkspaceId",
+        "returnType" : "List"
+      }, {
+        "name" : "createGitOperation",
+        "returnType" : "GitOperation"
+      }, {
+        "name" : "deleteGitOperation",
+        "returnType" : "void"
+      }, {
+        "name" : "updateGitOperation",
+        "returnType" : "GitOperation"
+      } ],
+      "sourceCode" : "package orchestrator.service;\r\n\r\nimport java.util.List;\r\nimport java.util.Optional;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport orchestrator.entity.GitOperation;\r\nimport orchestrator.repository.GitOperationRepository;\r\n\r\n@Service\r\npublic class GitOperationService {\r\n\tprivate final GitOperationRepository gitOperationRepository;\r\n\r\n\t@Autowired\r\n\tpublic GitOperationService(GitOperationRepository gitOperationRepository) {\r\n\t\tthis.gitOperationRepository = gitOperationRepository;\r\n\t}\r\n\r\n\tpublic List<GitOperation> getAllGitOperations() {\r\n\t\treturn gitOperationRepository.findAll();\r\n\t}\r\n\r\n\tpublic Optional<GitOperation> getGitOperationById(Long id) {\r\n\t\treturn gitOperationRepository.findById(id);\r\n\t}\r\n\r\n\tpublic List<GitOperation> getGitOperationsByWorkspaceId(Long workspaceId) {\r\n\t\treturn gitOperationRepository.findByWorkspaceId(workspaceId);\r\n\t}\r\n\r\n\tpublic List<GitOperation> getGitOperationsByExecucaoId(Long execucaoId) {\r\n\t\treturn gitOperationRepository.findByExecucaoId(execucaoId);\r\n\t}\r\n\r\n\tpublic GitOperation createGitOperation(GitOperation gitOperation) {\r\n\t\treturn gitOperationRepository.save(gitOperation);\r\n\t}\r\n\r\n\tpublic GitOperation updateGitOperation(Long id, GitOperation gitOperation) {\r\n\t\tgitOperation.setId(id);\r\n\t\treturn gitOperationRepository.save(gitOperation);\r\n\t}\r\n\r\n\tpublic void deleteGitOperation(Long id) {\r\n\t\tgitOperationRepository.deleteById(id);\r\n\t}\r\n}"
+    }, {
+      "package" : "orchestrator.service",
+      "className" : "LogExecucaoService",
+      "fullClassName" : "orchestrator.service.LogExecucaoService",
+      "annotations" : [ "Service" ],
+      "methods" : [ {
+        "name" : "save",
+        "returnType" : "LogExecucaoDTO"
+      }, {
+        "name" : "findAll",
+        "returnType" : "List"
+      }, {
+        "name" : "deleteById",
+        "returnType" : "void"
+      }, {
+        "name" : "findById",
+        "returnType" : "LogExecucaoDTO"
+      }, {
+        "name" : "toEntity",
+        "returnType" : "LogExecucao"
+      }, {
+        "name" : "toDTO",
+        "returnType" : "LogExecucaoDTO"
+      } ],
+      "sourceCode" : "package orchestrator.service;\r\n\r\n//----------------------------\r\n//LogExecucao Service\r\n//----------------------------\r\n\r\nimport java.util.List;\r\nimport java.util.stream.Collectors;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport orchestrator.dto.LogExecucaoDTO;\r\nimport orchestrator.entity.LogExecucao;\r\nimport orchestrator.repository.LogExecucaoRepository;\r\n\r\n@Service\r\npublic class LogExecucaoService {\r\n @Autowired\r\n private LogExecucaoRepository logExecucaoRepository;\r\n\r\n public List<LogExecucaoDTO> findAll() {\r\n     return logExecucaoRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());\r\n }\r\n\r\n public LogExecucaoDTO findById(Long id) {\r\n     return logExecucaoRepository.findById(id).map(this::toDTO).orElse(null);\r\n }\r\n\r\n public LogExecucaoDTO save(LogExecucaoDTO logExecucaoDTO) {\r\n     LogExecucao logExecucao = toEntity(logExecucaoDTO);\r\n     return toDTO(logExecucaoRepository.save(logExecucao));\r\n }\r\n\r\n public void deleteById(Long id) {\r\n     logExecucaoRepository.deleteById(id);\r\n }\r\n\r\n private LogExecucaoDTO toDTO(LogExecucao logExecucao) {\r\n     LogExecucaoDTO dto = new LogExecucaoDTO();\r\n     dto.setId(logExecucao.getId());\r\n     dto.setExecucaoId(logExecucao.getExecucaoId());\r\n     dto.setNivel(logExecucao.getNivel());\r\n     dto.setMensagem(logExecucao.getMensagem());\r\n     dto.setMetadata(logExecucao.getMetadata());\r\n     dto.setDataCriacao(logExecucao.getDataCriacao());\r\n     return dto;\r\n }\r\n\r\n private LogExecucao toEntity(LogExecucaoDTO logExecucaoDTO) {\r\n     LogExecucao logExecucao = new LogExecucao();\r\n     logExecucao.setId(logExecucaoDTO.getId());\r\n     logExecucao.setExecucaoId(logExecucaoDTO.getExecucaoId());\r\n     logExecucao.setNivel(logExecucaoDTO.getNivel());\r\n     logExecucao.setMensagem(logExecucaoDTO.getMensagem());\r\n     logExecucao.setMetadata(logExecucaoDTO.getMetadata());\r\n     logExecucao.setDataCriacao(logExecucaoDTO.getDataCriacao());\r\n     return logExecucao;\r\n }\r\n}"
+    }, {
+      "package" : "orchestrator.service",
+      "className" : "PassoExecucaoService",
+      "fullClassName" : "orchestrator.service.PassoExecucaoService",
+      "annotations" : [ "Service" ],
+      "methods" : [ {
+        "name" : "save",
+        "returnType" : "PassoExecucaoDTO"
+      }, {
+        "name" : "findAll",
+        "returnType" : "List"
+      }, {
+        "name" : "deleteById",
+        "returnType" : "void"
+      }, {
+        "name" : "findById",
+        "returnType" : "PassoExecucaoDTO"
+      }, {
+        "name" : "toEntity",
+        "returnType" : "PassoExecucao"
+      }, {
+        "name" : "toDTO",
+        "returnType" : "PassoExecucaoDTO"
+      } ],
+      "sourceCode" : "package orchestrator.service;\r\n\r\n//----------------------------\r\n//PassoExecucao Service\r\n//----------------------------\r\n\r\nimport java.util.List;\r\nimport java.util.stream.Collectors;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport orchestrator.dto.PassoExecucaoDTO;\r\nimport orchestrator.entity.PassoExecucao;\r\nimport orchestrator.repository.PassoExecucaoRepository;\r\n\r\n@Service\r\npublic class PassoExecucaoService {\r\n @Autowired\r\n private PassoExecucaoRepository passoExecucaoRepository;\r\n\r\n public List<PassoExecucaoDTO> findAll() {\r\n     return passoExecucaoRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());\r\n }\r\n\r\n public PassoExecucaoDTO findById(Long id) {\r\n     return passoExecucaoRepository.findById(id).map(this::toDTO).orElse(null);\r\n }\r\n\r\n public PassoExecucaoDTO save(PassoExecucaoDTO passoExecucaoDTO) {\r\n     PassoExecucao passoExecucao = toEntity(passoExecucaoDTO);\r\n     return toDTO(passoExecucaoRepository.save(passoExecucao));\r\n }\r\n\r\n public void deleteById(Long id) {\r\n     passoExecucaoRepository.deleteById(id);\r\n }\r\n\r\n private PassoExecucaoDTO toDTO(PassoExecucao passoExecucao) {\r\n     PassoExecucaoDTO dto = new PassoExecucaoDTO();\r\n     dto.setId(passoExecucao.getId());\r\n     dto.setExecucaoId(passoExecucao.getExecucaoId());\r\n     dto.setAgenteId(passoExecucao.getAgenteId());\r\n     dto.setOrdem(passoExecucao.getOrdem());\r\n     dto.setStatus(passoExecucao.getStatus());\r\n     dto.setInputs(passoExecucao.getInputs());\r\n     dto.setOutputs(passoExecucao.getOutputs());\r\n     dto.setErros(passoExecucao.getErros());\r\n     dto.setDataInicio(passoExecucao.getDataInicio());\r\n     dto.setDataFim(passoExecucao.getDataFim());\r\n     return dto;\r\n }\r\n\r\n private PassoExecucao toEntity(PassoExecucaoDTO passoExecucaoDTO) {\r\n     PassoExecucao passoExecucao = new PassoExecucao();\r\n     passoExecucao.setId(passoExecucaoDTO.getId());\r\n     passoExecucao.setExecucaoId(passoExecucaoDTO.getExecucaoId());\r\n     passoExecucao.setAgenteId(passoExecucaoDTO.getAgenteId());\r\n     passoExecucao.setOrdem(passoExecucaoDTO.getOrdem());\r\n     passoExecucao.setStatus(passoExecucaoDTO.getStatus());\r\n     passoExecucao.setInputs(passoExecucaoDTO.getInputs());\r\n     passoExecucao.setOutputs(passoExecucaoDTO.getOutputs());\r\n     passoExecucao.setErros(passoExecucaoDTO.getErros());\r\n     passoExecucao.setDataInicio(passoExecucaoDTO.getDataInicio());\r\n     passoExecucao.setDataFim(passoExecucaoDTO.getDataFim());\r\n     return passoExecucao;\r\n }\r\n}"
+    }, {
+      "package" : "orchestrator.service",
+      "className" : "TenantService",
+      "fullClassName" : "orchestrator.service.TenantService",
+      "annotations" : [ "Service" ],
+      "methods" : [ {
+        "name" : "save",
+        "returnType" : "TenantDTO"
+      }, {
+        "name" : "findAll",
+        "returnType" : "List"
+      }, {
+        "name" : "deleteById",
+        "returnType" : "void"
+      }, {
+        "name" : "findById",
+        "returnType" : "TenantDTO"
+      }, {
+        "name" : "toEntity",
+        "returnType" : "Tenant"
+      }, {
+        "name" : "toDTO",
+        "returnType" : "TenantDTO"
+      } ],
+      "sourceCode" : "package orchestrator.service;\r\n\r\n//----------------------------\r\n//Tenant Service\r\n//----------------------------\r\n\r\nimport java.util.List;\r\nimport java.util.stream.Collectors;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport orchestrator.dto.TenantDTO;\r\nimport orchestrator.entity.Tenant;\r\nimport orchestrator.repository.TenantRepository;\r\n\r\n@Service\r\npublic class TenantService {\r\n @Autowired\r\n private TenantRepository tenantRepository;\r\n\r\n public List<TenantDTO> findAll() {\r\n     return tenantRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());\r\n }\r\n\r\n public TenantDTO findById(Long id) {\r\n     return tenantRepository.findById(id).map(this::toDTO).orElse(null);\r\n }\r\n\r\n public TenantDTO save(TenantDTO tenantDTO) {\r\n     Tenant tenant = toEntity(tenantDTO);\r\n     return toDTO(tenantRepository.save(tenant));\r\n }\r\n\r\n public void deleteById(Long id) {\r\n     tenantRepository.deleteById(id);\r\n }\r\n\r\n private TenantDTO toDTO(Tenant tenant) {\r\n     TenantDTO dto = new TenantDTO();\r\n     dto.setId(tenant.getId());\r\n     dto.setNome(tenant.getNome());\r\n     dto.setConfiguracoes(tenant.getConfiguracoes());\r\n     dto.setStatus(tenant.getStatus());\r\n     dto.setDataCriacao(tenant.getDataCriacao());\r\n     return dto;\r\n }\r\n\r\n private Tenant toEntity(TenantDTO tenantDTO) {\r\n     Tenant tenant = new Tenant();\r\n     tenant.setId(tenantDTO.getId());\r\n     tenant.setNome(tenantDTO.getNome());\r\n     tenant.setConfiguracoes(tenantDTO.getConfiguracoes());\r\n     tenant.setStatus(tenantDTO.getStatus());\r\n     tenant.setDataCriacao(tenantDTO.getDataCriacao());\r\n     return tenant;\r\n }\r\n}"
+    }, {
+      "package" : "orchestrator.service",
+      "className" : "UsuarioService",
+      "fullClassName" : "orchestrator.service.UsuarioService",
+      "annotations" : [ "Service" ],
+      "methods" : [ {
+        "name" : "save",
+        "returnType" : "UsuarioDTO"
+      }, {
+        "name" : "findAll",
+        "returnType" : "List"
+      }, {
+        "name" : "deleteById",
+        "returnType" : "void"
+      }, {
+        "name" : "findById",
+        "returnType" : "UsuarioDTO"
+      }, {
+        "name" : "toEntity",
+        "returnType" : "Usuario"
+      }, {
+        "name" : "toDTO",
+        "returnType" : "UsuarioDTO"
+      } ],
+      "sourceCode" : "package orchestrator.service;\r\n\r\n//----------------------------\r\n//Usuario Service\r\n//----------------------------\r\n\r\nimport java.util.List;\r\nimport java.util.stream.Collectors;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport orchestrator.dto.UsuarioDTO;\r\nimport orchestrator.entity.Usuario;\r\nimport orchestrator.repository.UsuarioRepository;\r\n\r\n@Service\r\npublic class UsuarioService {\r\n\t\r\n @Autowired\r\n private UsuarioRepository usuarioRepository;\r\n\r\n public List<UsuarioDTO> findAll() {\r\n     return usuarioRepository.findAll().stream().map(this::toDTO).collect(Collectors.toList());\r\n }\r\n\r\n public UsuarioDTO findById(Long id) {\r\n     return usuarioRepository.findById(id).map(this::toDTO).orElse(null);\r\n }\r\n\r\n public UsuarioDTO save(UsuarioDTO usuarioDTO) {\r\n     Usuario usuario = toEntity(usuarioDTO);\r\n     return toDTO(usuarioRepository.save(usuario));\r\n }\r\n\r\n public void deleteById(Long id) {\r\n     usuarioRepository.deleteById(id);\r\n }\r\n\r\n private UsuarioDTO toDTO(Usuario usuario) {\r\n     UsuarioDTO dto = new UsuarioDTO();\r\n     dto.setId(usuario.getId());\r\n     dto.setNome(usuario.getNome());\r\n     dto.setEmail(usuario.getEmail());\r\n     dto.setTenantId(usuario.getTenantId());\r\n     dto.setRole(usuario.getRole());\r\n     dto.setStatus(usuario.getStatus());\r\n     dto.setDataCriacao(usuario.getDataCriacao());\r\n     return dto;\r\n }\r\n\r\n private Usuario toEntity(UsuarioDTO usuarioDTO) {\r\n     Usuario usuario = new Usuario();\r\n     usuario.setId(usuarioDTO.getId());\r\n     usuario.setNome(usuarioDTO.getNome());\r\n     usuario.setEmail(usuarioDTO.getEmail());\r\n     usuario.setTenantId(usuarioDTO.getTenantId());\r\n     usuario.setRole(usuarioDTO.getRole());\r\n     usuario.setStatus(usuarioDTO.getStatus());\r\n     usuario.setDataCriacao(usuarioDTO.getDataCriacao());\r\n     return usuario;\r\n }\r\n}"
+    }, {
+      "package" : "orchestrator.service",
+      "className" : "WorkspaceService",
+      "fullClassName" : "orchestrator.service.WorkspaceService",
+      "annotations" : [ "Service" ],
+      "methods" : [ {
+        "name" : "getWorkspaceById",
+        "returnType" : "Optional"
+      }, {
+        "name" : "createWorkspace",
+        "returnType" : "Workspace"
+      }, {
+        "name" : "getAllWorkspaces",
+        "returnType" : "List"
+      }, {
+        "name" : "deleteWorkspace",
+        "returnType" : "void"
+      }, {
+        "name" : "updateWorkspace",
+        "returnType" : "Workspace"
+      } ],
+      "sourceCode" : "package orchestrator.service;\r\n\r\n//WorkspaceService.java\r\nimport java.util.List;\r\nimport java.util.Optional;\r\n\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\nimport orchestrator.entity.Workspace;\r\nimport orchestrator.repository.WorkspaceRepository;\r\n\r\n@Service\r\npublic class WorkspaceService {\r\n private final WorkspaceRepository workspaceRepository;\r\n\r\n @Autowired\r\n public WorkspaceService(WorkspaceRepository workspaceRepository) {\r\n     this.workspaceRepository = workspaceRepository;\r\n }\r\n\r\n public List<Workspace> getAllWorkspaces() {\r\n     return workspaceRepository.findAll();\r\n }\r\n\r\n public Optional<Workspace> getWorkspaceById(Long id) {\r\n     return workspaceRepository.findById(id);\r\n }\r\n\r\n public Workspace createWorkspace(Workspace workspace) {\r\n     return workspaceRepository.save(workspace);\r\n }\r\n\r\n public Workspace updateWorkspace(Long id, Workspace workspace) {\r\n     workspace.setId(id);\r\n     return workspaceRepository.save(workspace);\r\n }\r\n\r\n public void deleteWorkspace(Long id) {\r\n     workspaceRepository.deleteById(id);\r\n }\r\n}"
+    } ],
+    "repositories" : [ ],
+    "entities" : [ ],
+    "dtos" : [ ],
+    "others" : [ {
+      "package" : "orchestrator",
+      "className" : "OrchestratorApplication$$SpringCGLIB$$0",
+      "fullClassName" : "orchestrator.OrchestratorApplication$$SpringCGLIB$$0",
+      "annotations" : [ "SpringBootApplication" ],
+      "methods" : [ {
+        "name" : "CGLIB$STATICHOOK2",
+        "returnType" : "void"
+      }, {
+        "name" : "CGLIB$STATICHOOK1",
+        "returnType" : "void"
+      }, {
+        "name" : "CGLIB$SET_STATIC_CALLBACKS",
+        "returnType" : "void"
+      }, {
+        "name" : "CGLIB$SET_THREAD_CALLBACKS",
+        "returnType" : "void"
+      }, {
+        "name" : "CGLIB$findMethodProxy",
+        "returnType" : "MethodProxy"
+      }, {
+        "name" : "CGLIB$BIND_CALLBACKS",
+        "returnType" : "void"
+      }, {
+        "name" : "CGLIB$setBeanFactory$4",
+        "returnType" : "void"
+      }, {
+        "name" : "setBeanFactory",
+        "returnType" : "void"
+      } ],
+      "sourceCode" : "<<SOURCE NOT FOUND>>"
+    }, {
+      "package" : "orchestrator",
+      "className" : "CorsConfig$$SpringCGLIB$$0",
+      "fullClassName" : "orchestrator.CorsConfig$$SpringCGLIB$$0",
+      "annotations" : [ ],
+      "methods" : [ {
+        "name" : "CGLIB$STATICHOOK3",
+        "returnType" : "void"
+      }, {
+        "name" : "CGLIB$STATICHOOK4",
+        "returnType" : "void"
+      }, {
+        "name" : "CGLIB$SET_STATIC_CALLBACKS",
+        "returnType" : "void"
+      }, {
+        "name" : "CGLIB$SET_THREAD_CALLBACKS",
+        "returnType" : "void"
+      }, {
+        "name" : "CGLIB$findMethodProxy",
+        "returnType" : "MethodProxy"
+      }, {
+        "name" : "CGLIB$BIND_CALLBACKS",
+        "returnType" : "void"
+      }, {
+        "name" : "CGLIB$setBeanFactory$22",
+        "returnType" : "void"
+      }, {
+        "name" : "setBeanFactory",
+        "returnType" : "void"
+      } ],
+      "sourceCode" : "<<SOURCE NOT FOUND>>"
+    } ]
+  }
+}
